@@ -1,4 +1,4 @@
-import { Canvas } from "@react-three/fiber";
+import { Canvas, useLoader } from "@react-three/fiber";
 import { OrbitControls, Stars } from "@react-three/drei";
 import { Suspense, useState, useMemo, useRef } from "react";
 import { useSatellites } from "../hooks/useSatellites";
@@ -11,11 +11,45 @@ import { formatDate, getHealthColor } from "../lib/utils";
 const EARTH_RADIUS = 2;
 const SAT_ALTITUDE = 0.15; // visual altitude above globe surface
 
+// NASA Blue Marble textures (public domain)
+const EARTH_TEXTURE_URL = "https://unpkg.com/three-globe@2.31.1/example/img/earth-blue-marble.jpg";
+const EARTH_BUMP_URL = "https://unpkg.com/three-globe@2.31.1/example/img/earth-topology.png";
+
 function Earth() {
   const meshRef = useRef<THREE.Mesh>(null);
+  const [dayMap, bumpMap] = useLoader(THREE.TextureLoader, [
+    EARTH_TEXTURE_URL,
+    EARTH_BUMP_URL,
+  ]);
 
   return (
     <mesh ref={meshRef}>
+      <sphereGeometry args={[EARTH_RADIUS, 64, 64]} />
+      <meshStandardMaterial
+        map={dayMap}
+        bumpMap={bumpMap}
+        bumpScale={0.03}
+        roughness={0.7}
+        metalness={0.1}
+      />
+      {/* Subtle wireframe overlay for techy grid look */}
+      <mesh>
+        <sphereGeometry args={[EARTH_RADIUS + 0.003, 36, 18]} />
+        <meshBasicMaterial
+          color="#005288"
+          wireframe
+          transparent
+          opacity={0.04}
+        />
+      </mesh>
+    </mesh>
+  );
+}
+
+// Fallback Earth in case textures fail to load
+function EarthFallback() {
+  return (
+    <mesh>
       <sphereGeometry args={[EARTH_RADIUS, 64, 64]} />
       <meshStandardMaterial
         color="#1a3a5c"
@@ -24,31 +58,34 @@ function Earth() {
         emissive="#0a1929"
         emissiveIntensity={0.3}
       />
-      {/* Wireframe overlay for grid effect */}
-      <mesh>
-        <sphereGeometry args={[EARTH_RADIUS + 0.005, 36, 18]} />
-        <meshBasicMaterial
-          color="#005288"
-          wireframe
-          transparent
-          opacity={0.08}
-        />
-      </mesh>
     </mesh>
   );
 }
 
 function Atmosphere() {
   return (
-    <mesh>
-      <sphereGeometry args={[EARTH_RADIUS + 0.08, 64, 64]} />
-      <meshBasicMaterial
-        color="#4a9eda"
-        transparent
-        opacity={0.05}
-        side={THREE.BackSide}
-      />
-    </mesh>
+    <>
+      {/* Inner glow */}
+      <mesh>
+        <sphereGeometry args={[EARTH_RADIUS + 0.04, 64, 64]} />
+        <meshBasicMaterial
+          color="#4a9eda"
+          transparent
+          opacity={0.04}
+          side={THREE.BackSide}
+        />
+      </mesh>
+      {/* Outer glow */}
+      <mesh>
+        <sphereGeometry args={[EARTH_RADIUS + 0.12, 64, 64]} />
+        <meshBasicMaterial
+          color="#1a6fb5"
+          transparent
+          opacity={0.02}
+          side={THREE.BackSide}
+        />
+      </mesh>
+    </>
   );
 }
 
@@ -178,11 +215,13 @@ function OrbitRings() {
 function Scene({ satellites, onSelect }: SatelliteDotsProps) {
   return (
     <>
-      <ambientLight intensity={0.3} />
-      <directionalLight position={[5, 3, 5]} intensity={1} />
-      <pointLight position={[-5, -3, -5]} intensity={0.3} color="#4a9eda" />
+      <ambientLight intensity={0.4} />
+      <directionalLight position={[5, 3, 5]} intensity={1.2} />
+      <pointLight position={[-5, -3, -5]} intensity={0.2} color="#4a9eda" />
       <Stars radius={100} depth={50} count={3000} factor={4} saturation={0} fade speed={0.5} />
-      <Earth />
+      <Suspense fallback={<EarthFallback />}>
+        <Earth />
+      </Suspense>
       <Atmosphere />
       <OrbitRings />
       <SatelliteDots satellites={satellites} onSelect={onSelect} />
@@ -223,7 +262,7 @@ export default function GlobeView() {
           <Canvas
             camera={{ position: [0, 0, 5], fov: 45 }}
             gl={{ antialias: true, alpha: true }}
-            style={{ background: "#050505" }}
+            style={{ background: "#000000" }}
           >
             <Suspense fallback={null}>
               <Scene

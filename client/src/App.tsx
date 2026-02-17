@@ -33,7 +33,7 @@ export default function App() {
   ];
 
   return (
-    <div className="min-h-screen bg-spacex-darker text-gray-200">
+    <div className="min-h-screen bg-black text-[rgba(240,240,250,1)]">
       {/* Skip link for accessibility */}
       <a href="#main-content" className="skip-link">
         Skip to main content

@@ -6,8 +6,8 @@ const config: Config = {
     extend: {
       colors: {
         spacex: {
-          dark: "#0a0a0a",
-          darker: "#050505",
+          dark: "#000000",
+          darker: "#000000",
           blue: "#005288",
           accent: "#a7d1f0",
           gold: "#f5a623",

@@ -435,7 +435,22 @@ export class DataService {
       console.warn("LL2 API unavailable:", err);
     }
 
-    // Sort by date descending (newest first)
+    // Sort by date ascending to assign sequential flight numbers
+    launches.sort((a, b) => new Date(a.dateUtc).getTime() - new Date(b.dateUtc).getTime());
+
+    // Fill in missing flight numbers sequentially
+    let maxFlight = 0;
+    for (const l of launches) {
+      if (l.flightNumber > maxFlight) maxFlight = l.flightNumber;
+    }
+    for (const l of launches) {
+      if (l.flightNumber === 0) {
+        maxFlight++;
+        l.flightNumber = maxFlight;
+      }
+    }
+
+    // Now sort descending (newest first) for display
     launches.sort((a, b) => new Date(b.dateUtc).getTime() - new Date(a.dateUtc).getTime());
 
     this.setCache("launches", launches);

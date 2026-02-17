@@ -15,8 +15,8 @@ html, body, #root {
 }
 
 body {
-  background-color: #050505;
-  color: #e5e7eb;
+  background-color: #000000;
+  color: rgba(240, 240, 250, 1);
   font-family: "DM Sans", system-ui, sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
@@ -28,7 +28,7 @@ body {
 }
 
 ::-webkit-scrollbar-track {
-  background: #0a0a0a;
+  background: #000000;
 }
 
 ::-webkit-scrollbar-thumb {
@@ -83,7 +83,7 @@ body {
 
 /* Glass effect */
 .glass {
-  background: rgba(10, 10, 10, 0.8);
+  background: rgba(0, 0, 0, 0.85);
   backdrop-filter: blur(12px);
   border: 1px solid rgba(255, 255, 255, 0.06);
 }
