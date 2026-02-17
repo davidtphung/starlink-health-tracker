@@ -153,8 +153,15 @@ export default function App() {
           <div className="flex flex-col sm:flex-row items-center justify-between gap-4 text-xs text-gray-500">
             <p>
               Built by{" "}
-              <span className="text-spacex-accent">David T Phung</span> | Data from
-              SpaceX API &amp; CelesTrak
+              <a
+                href="https://x.com/davidtphung"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="text-spacex-accent hover:underline"
+              >
+                David T Phung
+              </a>{" "}
+              | Data from SpaceX API &amp; CelesTrak
             </p>
             <p className="font-mono tracking-wider">STARLINK HEALTH TRACKER v1.0</p>
           </div>

@@ -93,7 +93,14 @@ export default function About() {
       <div className="glass rounded-xl p-6">
         <h3 className="text-lg font-semibold text-white mb-3">Built By</h3>
         <p className="text-gray-300">
-          <span className="text-spacex-accent font-semibold">David T Phung</span>
+          <a
+            href="https://x.com/davidtphung"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="text-spacex-accent font-semibold hover:underline"
+          >
+            David T Phung
+          </a>
         </p>
         <p className="text-sm text-gray-400 mt-2">
           Built with React, Three.js, Express, TailwindCSS, and the SpaceX public API.
