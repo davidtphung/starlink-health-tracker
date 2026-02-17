@@ -1,9 +1,9 @@
-import { Github, ExternalLink, Database, Satellite, Globe, BarChart3 } from "lucide-react";
+import { ExternalLink, Database, Satellite, Globe, BarChart3 } from "lucide-react";
 
 export default function About() {
   return (
-    <div className="px-4 sm:px-6 lg:px-8 py-8 max-w-4xl mx-auto">
-      <div className="mb-10">
+    <div className="px-phi-4 sm:px-phi-5 lg:px-phi-6 py-phi-6 max-w-3xl mx-auto">
+      <div className="mb-phi-6">
         <h2 className="text-3xl font-bold tracking-tight">
           <span className="gradient-text">About</span>{" "}
           <span className="text-white">This Project</span>
@@ -11,9 +11,9 @@ export default function About() {
       </div>
 
       {/* Overview */}
-      <div className="glass rounded-xl p-6 mb-6">
-        <h3 className="text-lg font-semibold text-white mb-3">Starlink Health Tracker</h3>
-        <p className="text-gray-300 leading-relaxed">
+      <div className="glass rounded-xl p-phi-5 mb-phi-5">
+        <h3 className="text-xl font-semibold text-white mb-phi-3">Starlink Health Tracker</h3>
+        <p className="text-gray-300 text-base">
           A real-time monitoring dashboard for SpaceX's Starlink satellite constellation.
           This tracker aggregates public data from multiple sources to provide orbital health
           assessments, mission history, rocket and booster tracking, and 3D constellation
@@ -22,7 +22,7 @@ export default function About() {
       </div>
 
       {/* Features */}
-      <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 mb-6">
+      <div className="grid grid-cols-1 sm:grid-cols-2 gap-phi-4 mb-phi-5">
         {[
           {
             icon: Globe,
@@ -45,19 +45,19 @@ export default function About() {
             desc: "Complete launch history with Falcon 9 booster serials, flight counts, and landing records.",
           },
         ].map((feature) => (
-          <div key={feature.title} className="glass rounded-xl p-5">
-            <feature.icon className="w-6 h-6 text-spacex-accent mb-3" aria-hidden="true" />
-            <h4 className="font-semibold text-white mb-1">{feature.title}</h4>
+          <div key={feature.title} className="glass rounded-xl p-phi-5">
+            <feature.icon className="w-6 h-6 text-spacex-accent mb-phi-3" aria-hidden="true" />
+            <h4 className="font-semibold text-white mb-phi-1">{feature.title}</h4>
             <p className="text-sm text-gray-400">{feature.desc}</p>
           </div>
         ))}
       </div>
 
       {/* Data Sources */}
-      <div className="glass rounded-xl p-6 mb-6">
-        <h3 className="text-lg font-semibold text-white mb-4">Data Sources</h3>
-        <div className="space-y-3 text-sm">
-          <div className="flex items-start gap-3">
+      <div className="glass rounded-xl p-phi-5 mb-phi-5">
+        <h3 className="text-xl font-semibold text-white mb-phi-4">Data Sources</h3>
+        <div className="space-y-phi-3 text-sm">
+          <div className="flex items-start gap-phi-3">
             <ExternalLink className="w-4 h-4 text-spacex-accent mt-0.5 flex-shrink-0" />
             <div>
               <p className="text-white font-medium">SpaceX REST API (r/SpaceX)</p>
@@ -66,7 +66,7 @@ export default function About() {
               </p>
             </div>
           </div>
-          <div className="flex items-start gap-3">
+          <div className="flex items-start gap-phi-3">
             <ExternalLink className="w-4 h-4 text-spacex-accent mt-0.5 flex-shrink-0" />
             <div>
               <p className="text-white font-medium">CelesTrak / Space-Track</p>
@@ -79,9 +79,9 @@ export default function About() {
       </div>
 
       {/* Accessibility */}
-      <div className="glass rounded-xl p-6 mb-6">
-        <h3 className="text-lg font-semibold text-white mb-3">Accessibility</h3>
-        <p className="text-gray-300 text-sm leading-relaxed">
+      <div className="glass rounded-xl p-phi-5 mb-phi-5">
+        <h3 className="text-xl font-semibold text-white mb-phi-3">Accessibility</h3>
+        <p className="text-gray-300 text-sm">
           This site follows WCAG 2.1 AA guidelines. Features include keyboard navigation,
           screen reader support with ARIA labels, skip navigation links, sufficient color
           contrast ratios, and responsive design for all device sizes. Focus indicators are
@@ -90,8 +90,8 @@ export default function About() {
       </div>
 
       {/* Credits */}
-      <div className="glass rounded-xl p-6">
-        <h3 className="text-lg font-semibold text-white mb-3">Built By</h3>
+      <div className="glass rounded-xl p-phi-5">
+        <h3 className="text-xl font-semibold text-white mb-phi-3">Built By</h3>
         <p className="text-gray-300">
           <a
             href="https://x.com/davidtphung"
@@ -102,7 +102,7 @@ export default function About() {
             David T Phung
           </a>
         </p>
-        <p className="text-sm text-gray-400 mt-2">
+        <p className="text-sm text-gray-400 mt-phi-2">
           Built with React, Three.js, Express, TailwindCSS, and the SpaceX public API.
         </p>
       </div>

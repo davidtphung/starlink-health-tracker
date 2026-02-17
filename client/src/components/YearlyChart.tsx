@@ -28,8 +28,8 @@ export function YearlyChart({ stats }: Props) {
   });
 
   return (
-    <div className="glass rounded-xl p-6" role="region" aria-label="Year over year growth">
-      <h3 className="text-sm font-mono text-gray-400 tracking-wider mb-5 uppercase">
+    <div className="glass rounded-xl p-phi-5" role="region" aria-label="Year over year growth">
+      <h3 className="text-sm font-mono text-gray-400 tracking-wider mb-phi-5 uppercase">
         Year-Over-Year Growth
       </h3>
 
@@ -78,12 +78,12 @@ export function YearlyChart({ stats }: Props) {
       </div>
 
       {/* Legend */}
-      <div className="flex justify-center gap-6 mt-4 text-xs text-gray-400">
-        <span className="flex items-center gap-2">
+      <div className="flex justify-center gap-phi-5 mt-phi-4 text-xs text-gray-400">
+        <span className="flex items-center gap-phi-2">
           <span className="w-3 h-3 rounded bg-spacex-blue" aria-hidden="true" />
           Launches
         </span>
-        <span className="flex items-center gap-2">
+        <span className="flex items-center gap-phi-2">
           <span className="w-3 h-3 rounded bg-spacex-accent opacity-70" aria-hidden="true" />
           Satellites Deployed
         </span>

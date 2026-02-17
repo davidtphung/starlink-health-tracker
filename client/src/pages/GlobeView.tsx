@@ -246,7 +246,7 @@ export default function GlobeView() {
   const activeSatCount = satellites?.filter((s) => s.status === "active").length || 0;
 
   return (
-    <div className="relative h-[calc(100vh-64px)]">
+    <div className="relative h-[calc(100vh-55px)]">
       {/* Globe */}
       <div className="absolute inset-0 globe-canvas">
         {isLoading ? (
@@ -275,8 +275,8 @@ export default function GlobeView() {
       </div>
 
       {/* Overlay Stats */}
-      <div className="absolute top-4 left-4 glass rounded-xl p-4 max-w-xs" role="status" aria-live="polite">
-        <div className="flex items-center gap-2 mb-2">
+      <div className="absolute top-phi-4 left-phi-4 glass rounded-xl p-phi-4 max-w-xs" role="status" aria-live="polite">
+        <div className="flex items-center gap-phi-2 mb-phi-2">
           <div className="w-2 h-2 rounded-full bg-spacex-success animate-pulse" />
           <span className="text-xs font-mono text-spacex-success tracking-wider">LIVE TRACKING</span>
         </div>
@@ -287,18 +287,18 @@ export default function GlobeView() {
       </div>
 
       {/* Legend */}
-      <div className="absolute bottom-4 left-4 glass rounded-xl p-3">
-        <p className="text-xs font-mono text-gray-400 mb-2">HEALTH STATUS</p>
-        <div className="flex gap-4 text-xs">
-          <span className="flex items-center gap-1.5">
+      <div className="absolute bottom-phi-4 left-phi-4 glass rounded-xl p-phi-3">
+        <p className="text-xs font-mono text-gray-400 mb-phi-2">HEALTH STATUS</p>
+        <div className="flex gap-phi-4 text-xs">
+          <span className="flex items-center gap-phi-1">
             <span className="w-2 h-2 rounded-full bg-spacex-success" aria-hidden="true" />
             Nominal
           </span>
-          <span className="flex items-center gap-1.5">
+          <span className="flex items-center gap-phi-1">
             <span className="w-2 h-2 rounded-full bg-spacex-warning" aria-hidden="true" />
             Degraded
           </span>
-          <span className="flex items-center gap-1.5">
+          <span className="flex items-center gap-phi-1">
             <span className="w-2 h-2 rounded-full bg-spacex-danger" aria-hidden="true" />
             Critical
           </span>
@@ -306,7 +306,7 @@ export default function GlobeView() {
       </div>
 
       {/* Interaction hint */}
-      <div className="absolute bottom-4 right-4 glass rounded-xl px-3 py-2">
+      <div className="absolute bottom-phi-4 right-phi-4 glass rounded-xl px-phi-3 py-phi-2">
         <p className="text-xs text-gray-500 font-mono">
           DRAG TO ROTATE / SCROLL TO ZOOM
         </p>
@@ -314,8 +314,8 @@ export default function GlobeView() {
 
       {/* Selected Satellite Panel */}
       {selected && (
-        <div className="absolute top-4 right-4 glass rounded-xl p-5 w-80 animate-fade-in" role="dialog" aria-label="Satellite details">
-          <div className="flex items-center justify-between mb-4">
+        <div className="absolute top-phi-4 right-phi-4 glass rounded-xl p-phi-5 w-80 animate-fade-in" role="dialog" aria-label="Satellite details">
+          <div className="flex items-center justify-between mb-phi-4">
             <h3 className="font-semibold text-spacex-accent">{selected.name}</h3>
             <button
               onClick={() => setSelected(null)}
@@ -325,25 +325,25 @@ export default function GlobeView() {
               <X className="w-4 h-4" />
             </button>
           </div>
-          <div className="space-y-3 text-sm">
-            <div className="flex items-center gap-2">
+          <div className="space-y-phi-3 text-sm">
+            <div className="flex items-center gap-phi-2">
               <Shield className="w-4 h-4 text-gray-400" />
               <span className="text-gray-400">Health:</span>
               <span className={getHealthColor(selected.healthStatus)}>
                 {selected.healthStatus.toUpperCase()} ({selected.healthScore}%)
               </span>
             </div>
-            <div className="flex items-center gap-2">
+            <div className="flex items-center gap-phi-2">
               <MapPin className="w-4 h-4 text-gray-400" />
               <span className="text-gray-400">Position:</span>
               <span>{selected.latitude?.toFixed(2)}, {selected.longitude?.toFixed(2)}</span>
             </div>
-            <div className="flex items-center gap-2">
+            <div className="flex items-center gap-phi-2">
               <Activity className="w-4 h-4 text-gray-400" />
               <span className="text-gray-400">Altitude:</span>
               <span>{selected.heightKm?.toFixed(1)} km</span>
             </div>
-            <div className="flex items-center gap-2">
+            <div className="flex items-center gap-phi-2">
               <Calendar className="w-4 h-4 text-gray-400" />
               <span className="text-gray-400">Launched:</span>
               <span>{formatDate(selected.launchDate)}</span>

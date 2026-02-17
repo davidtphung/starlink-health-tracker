@@ -24,20 +24,20 @@ export default function Dashboard() {
   if (statsLoading) return <DashboardSkeleton />;
 
   return (
-    <div className="px-4 sm:px-6 lg:px-8 py-6 sm:py-8 space-y-6 sm:space-y-8">
+    <div className="px-phi-4 sm:px-phi-5 lg:px-phi-6 py-phi-5 sm:py-phi-6 space-y-phi-5 sm:space-y-phi-6">
       {/* Hero */}
       <div>
-        <div className="flex items-center gap-3 mb-2">
+        <div className="flex items-center gap-phi-3 mb-phi-2">
           <div className="w-2 h-2 rounded-full bg-spacex-success animate-pulse" aria-hidden="true" />
           <span className="text-[10px] sm:text-xs font-mono text-spacex-success tracking-widest uppercase">
             Live Constellation Data
           </span>
         </div>
-        <h2 className="text-2xl sm:text-3xl lg:text-4xl font-bold tracking-tight">
+        <h2 className="text-2xl sm:text-3xl lg:text-4xl font-bold tracking-tight leading-tight">
           <span className="gradient-text">Starlink</span>{" "}
           <span className="text-white">Health Monitor</span>
         </h2>
-        <p className="text-gray-500 mt-1 sm:mt-2 text-sm sm:text-base max-w-2xl">
+        <p className="text-gray-500 mt-phi-2 sm:mt-phi-3 text-base max-w-2xl">
           Real-time tracking of SpaceX's Starlink satellite constellation.
         </p>
       </div>
@@ -47,19 +47,19 @@ export default function Dashboard() {
 
       {/* Middle: Health + Globe CTA + Growth Chart */}
       {stats && (
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-6">
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-phi-4 sm:gap-phi-5">
           <HealthCard stats={stats} />
           <GlobeCTA stats={stats} />
           <GrowthMiniChart stats={stats} />
         </div>
       )}
 
-      {/* Bottom: Recent Launches + Social Feeds */}
-      <div className="grid grid-cols-1 lg:grid-cols-3 gap-4 sm:gap-6">
-        <div className="lg:col-span-2">
+      {/* Bottom: Recent Launches + Social Feeds (golden ratio split) */}
+      <div className="flex flex-col lg:flex-row gap-phi-4 sm:gap-phi-5">
+        <div className="golden-major">
           {launches && <RecentLaunches launches={launches} />}
         </div>
-        <div className="space-y-4 sm:space-y-6">
+        <div className="golden-minor space-y-phi-4 sm:space-y-phi-5">
           <SocialCard
             handle="@SpaceX"
             url="https://x.com/SpaceX"
@@ -92,7 +92,7 @@ function HeroStats({ stats }: { stats: ConstellationStats }) {
   ];
 
   return (
-    <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-6 gap-3 sm:gap-4" role="region" aria-label="Key metrics">
+    <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-6 gap-phi-3 sm:gap-phi-4" role="region" aria-label="Key metrics">
       {cards.map((card, i) => {
         const Icon = card.icon;
         return (
@@ -103,8 +103,8 @@ function HeroStats({ stats }: { stats: ConstellationStats }) {
             transition={{ delay: i * 0.05, duration: 0.3 }}
           >
             <Link href={card.href}>
-              <div className="glass rounded-xl p-4 sm:p-5 stat-glow cursor-pointer group hover:border-spacex-blue/30 transition-all">
-                <div className="flex items-center justify-between mb-2">
+              <div className="glass rounded-xl p-phi-4 sm:p-phi-5 stat-glow cursor-pointer group hover:border-spacex-blue/30 transition-all">
+                <div className="flex items-center justify-between mb-phi-2">
                   <Icon className={`w-4 h-4 ${card.color} opacity-70`} aria-hidden="true" />
                   <ChevronRight className="w-3 h-3 text-gray-600 group-hover:text-spacex-accent transition-colors" aria-hidden="true" />
                 </div>
@@ -112,7 +112,7 @@ function HeroStats({ stats }: { stats: ConstellationStats }) {
                   <CountUp end={card.value} duration={1.5} separator="," preserveValue />
                   {card.suffix || ""}
                 </p>
-                <p className="text-[10px] sm:text-xs text-gray-500 font-mono tracking-wider mt-1 uppercase">
+                <p className="text-[10px] sm:text-xs text-gray-500 font-mono tracking-wider mt-phi-1 uppercase">
                   {card.label}
                 </p>
               </div>
@@ -135,25 +135,25 @@ function HealthCard({ stats }: { stats: ConstellationStats }) {
 
   return (
     <Link href="/globe">
-      <div className="glass rounded-xl p-5 sm:p-6 cursor-pointer group hover:border-spacex-blue/30 transition-all h-full">
-        <div className="flex items-center justify-between mb-4">
+      <div className="glass rounded-xl p-phi-5 sm:p-phi-6 cursor-pointer group hover:border-spacex-blue/30 transition-all h-full">
+        <div className="flex items-center justify-between mb-phi-4">
           <h3 className="text-xs font-mono text-gray-400 tracking-wider uppercase">Constellation Health</h3>
           <ArrowRight className="w-4 h-4 text-gray-600 group-hover:text-spacex-accent transition-colors" />
         </div>
-        <div className="flex items-baseline gap-2 mb-4">
+        <div className="flex items-baseline gap-phi-2 mb-phi-4">
           <span className="text-4xl sm:text-5xl font-bold text-spacex-success font-mono">{nominalPct}%</span>
           <span className="text-xs text-gray-500">nominal</span>
         </div>
-        <div className="flex h-2 rounded-full overflow-hidden mb-4">
+        <div className="flex h-2 rounded-full overflow-hidden mb-phi-4">
           {health.map((h) => (
             <div key={h.label} className={`${h.color}`} style={{ width: `${total > 0 ? (h.count / total) * 100 : 0}%` }} />
           ))}
         </div>
-        <div className="flex gap-4 sm:gap-6">
+        <div className="flex gap-phi-4 sm:gap-phi-5">
           {health.map((h) => {
             const Icon = h.icon;
             return (
-              <div key={h.label} className="flex items-center gap-1.5">
+              <div key={h.label} className="flex items-center gap-phi-1">
                 <Icon className={`w-3 h-3 ${h.text}`} aria-hidden="true" />
                 <span className="text-xs text-gray-400">{formatNumber(h.count)}</span>
               </div>
@@ -168,14 +168,14 @@ function HealthCard({ stats }: { stats: ConstellationStats }) {
 function GlobeCTA({ stats }: { stats: ConstellationStats }) {
   return (
     <Link href="/globe">
-      <div className="glass rounded-xl p-5 sm:p-6 cursor-pointer group hover:border-spacex-blue/30 transition-all h-full flex flex-col justify-between relative overflow-hidden">
+      <div className="glass rounded-xl p-phi-5 sm:p-phi-6 cursor-pointer group hover:border-spacex-blue/30 transition-all h-full flex flex-col justify-between relative overflow-hidden">
         <div className="absolute inset-0 bg-gradient-to-br from-spacex-blue/10 to-transparent opacity-0 group-hover:opacity-100 transition-opacity" />
         <div className="relative z-10">
-          <div className="flex items-center justify-between mb-4">
+          <div className="flex items-center justify-between mb-phi-4">
             <h3 className="text-xs font-mono text-gray-400 tracking-wider uppercase">3D Globe View</h3>
             <ArrowRight className="w-4 h-4 text-gray-600 group-hover:text-spacex-accent transition-colors" />
           </div>
-          <Globe className="w-16 h-16 sm:w-20 sm:h-20 text-spacex-blue/40 mx-auto my-4 group-hover:text-spacex-blue/60 transition-colors animate-spin-slow" aria-hidden="true" />
+          <Globe className="w-16 h-16 sm:w-20 sm:h-20 text-spacex-blue/40 mx-auto my-phi-4 group-hover:text-spacex-blue/60 transition-colors animate-spin-slow" aria-hidden="true" />
         </div>
         <div className="relative z-10 text-center">
           <p className="text-lg sm:text-xl font-bold text-white font-mono">
@@ -197,8 +197,8 @@ function GrowthMiniChart({ stats }: { stats: ConstellationStats }) {
   }));
 
   return (
-    <div className="glass rounded-xl p-5 sm:p-6 md:col-span-2 lg:col-span-1">
-      <div className="flex items-center justify-between mb-4">
+    <div className="glass rounded-xl p-phi-5 sm:p-phi-6 md:col-span-2 lg:col-span-1">
+      <div className="flex items-center justify-between mb-phi-4">
         <h3 className="text-xs font-mono text-gray-400 tracking-wider uppercase">Yearly Growth</h3>
         <BarChart3 className="w-4 h-4 text-gray-600" aria-hidden="true" />
       </div>
@@ -227,9 +227,9 @@ function GrowthMiniChart({ stats }: { stats: ConstellationStats }) {
           </BarChart>
         </ResponsiveContainer>
       </div>
-      <div className="flex justify-center gap-4 mt-2 text-[10px] text-gray-500">
-        <span className="flex items-center gap-1"><span className="w-2 h-2 rounded bg-spacex-accent/80" aria-hidden="true" />Satellites</span>
-        <span className="flex items-center gap-1"><span className="w-2 h-2 rounded bg-spacex-blue" aria-hidden="true" />Launches</span>
+      <div className="flex justify-center gap-phi-4 mt-phi-2 text-[10px] text-gray-500">
+        <span className="flex items-center gap-phi-1"><span className="w-2 h-2 rounded bg-spacex-accent/80" aria-hidden="true" />Satellites</span>
+        <span className="flex items-center gap-phi-1"><span className="w-2 h-2 rounded bg-spacex-blue" aria-hidden="true" />Launches</span>
       </div>
     </div>
   );
@@ -239,27 +239,27 @@ function RecentLaunches({ launches }: { launches: SpaceXLaunch[] }) {
   const recent = launches.slice(0, 5);
 
   return (
-    <div className="glass rounded-xl p-5 sm:p-6">
-      <div className="flex items-center justify-between mb-4">
+    <div className="glass rounded-xl p-phi-5 sm:p-phi-6">
+      <div className="flex items-center justify-between mb-phi-4">
         <h3 className="text-xs font-mono text-gray-400 tracking-wider uppercase">Recent Missions</h3>
         <Link href="/launches">
-          <span className="flex items-center gap-1 text-xs text-spacex-accent hover:underline cursor-pointer">
+          <span className="flex items-center gap-phi-1 text-xs text-spacex-accent hover:underline cursor-pointer">
             View all <ArrowRight className="w-3 h-3" />
           </span>
         </Link>
       </div>
-      <div className="space-y-1">
+      <div className="space-y-phi-1">
         {recent.map((l) => (
           <Link key={l.id} href="/launches">
-            <div className="flex items-center gap-3 sm:gap-4 p-3 rounded-lg hover:bg-white/[0.03] transition-colors cursor-pointer group">
+            <div className="flex items-center gap-phi-3 sm:gap-phi-4 p-phi-3 rounded-lg hover:bg-white/[0.03] transition-colors cursor-pointer group">
               <div className={`w-2 h-2 rounded-full flex-shrink-0 ${l.success ? "bg-spacex-success" : l.success === false ? "bg-spacex-danger" : "bg-spacex-warning"}`} />
               <div className="flex-1 min-w-0">
                 <p className="text-sm text-white truncate font-medium">{l.name}</p>
                 <p className="text-[10px] sm:text-xs text-gray-500">{formatDate(l.dateUtc)}</p>
               </div>
-              <div className="hidden sm:flex items-center gap-2">
+              <div className="hidden sm:flex items-center gap-phi-2">
                 {l.cores[0] && (
-                  <span className="px-2 py-0.5 bg-white/5 rounded text-[10px] font-mono text-gray-400">
+                  <span className="px-phi-2 py-0.5 bg-white/5 rounded text-[10px] font-mono text-gray-400">
                     {l.cores[0].serial}
                   </span>
                 )}
@@ -280,14 +280,14 @@ function SocialCard({ handle, url, description, label }: { handle: string; url: 
       href={url}
       target="_blank"
       rel="noopener noreferrer"
-      className="glass rounded-xl p-5 sm:p-6 block group hover:border-spacex-blue/30 transition-all"
+      className="glass rounded-xl p-phi-5 sm:p-phi-6 block group hover:border-spacex-blue/30 transition-all"
       aria-label={`Follow ${handle} on X`}
     >
-      <div className="flex items-center justify-between mb-3">
+      <div className="flex items-center justify-between mb-phi-3">
         <span className="text-[10px] font-mono text-gray-500 tracking-widest uppercase">{label}</span>
         <ExternalLink className="w-3 h-3 text-gray-600 group-hover:text-spacex-accent transition-colors" />
       </div>
-      <div className="flex items-center gap-3 mb-3">
+      <div className="flex items-center gap-phi-3 mb-phi-3">
         <div className="w-10 h-10 rounded-lg bg-white/5 flex items-center justify-center group-hover:bg-white/10 transition-colors">
           <svg className="w-5 h-5 text-white" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
             <path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z" />
@@ -299,7 +299,7 @@ function SocialCard({ handle, url, description, label }: { handle: string; url: 
         </div>
       </div>
       <p className="text-xs text-gray-400 leading-relaxed">{description}</p>
-      <div className="mt-3 flex items-center gap-1.5 text-xs text-spacex-accent group-hover:underline">
+      <div className="mt-phi-3 flex items-center gap-phi-2 text-xs text-spacex-accent group-hover:underline">
         Follow for updates <ArrowRight className="w-3 h-3" />
       </div>
     </a>
@@ -309,11 +309,11 @@ function SocialCard({ handle, url, description, label }: { handle: string; url: 
 function FunFactsStrip({ facts }: { facts: FunFact[] }) {
   return (
     <section role="region" aria-label="Fun facts">
-      <h3 className="text-xs font-mono text-gray-400 tracking-wider mb-4 uppercase flex items-center gap-2">
+      <h3 className="text-xs font-mono text-gray-400 tracking-wider mb-phi-4 uppercase flex items-center gap-phi-2">
         <Zap className="w-3.5 h-3.5 text-spacex-gold" aria-hidden="true" />
         Fun Facts
       </h3>
-      <div className="grid grid-cols-2 sm:grid-cols-4 gap-3 sm:gap-4">
+      <div className="grid grid-cols-2 sm:grid-cols-4 gap-phi-3 sm:gap-phi-4">
         {facts.slice(0, 4).map((fact, i) => {
           const Icon = iconMap[fact.icon] || Zap;
           return (
@@ -322,12 +322,12 @@ function FunFactsStrip({ facts }: { facts: FunFact[] }) {
               initial={{ opacity: 0, y: 10 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ delay: i * 0.08, duration: 0.3 }}
-              className="glass rounded-xl p-4 hover:border-spacex-gold/20 transition-colors"
+              className="glass rounded-xl p-phi-4 hover:border-spacex-gold/20 transition-colors"
             >
-              <Icon className="w-4 h-4 text-spacex-gold mb-2" aria-hidden="true" />
+              <Icon className="w-4 h-4 text-spacex-gold mb-phi-2" aria-hidden="true" />
               <p className="text-[10px] text-gray-500 font-mono tracking-wider mb-0.5">{fact.label}</p>
               <p className="text-sm sm:text-base font-bold text-white">{fact.value}</p>
-              <p className="text-[10px] text-gray-500 leading-relaxed mt-1 hidden sm:block">{fact.description}</p>
+              <p className="text-[10px] text-gray-500 leading-relaxed mt-phi-1 hidden sm:block">{fact.description}</p>
             </motion.div>
           );
         })}
@@ -338,17 +338,17 @@ function FunFactsStrip({ facts }: { facts: FunFact[] }) {
 
 function DashboardSkeleton() {
   return (
-    <div className="px-4 sm:px-6 lg:px-8 py-6 sm:py-8 space-y-6 animate-pulse">
+    <div className="px-phi-4 sm:px-phi-5 lg:px-phi-6 py-phi-5 sm:py-phi-6 space-y-phi-5 animate-pulse">
       <div className="h-20 rounded-xl bg-white/[0.03]" />
-      <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-6 gap-3">
+      <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-6 gap-phi-3">
         {[...Array(6)].map((_, i) => <div key={i} className="h-24 rounded-xl bg-white/[0.03]" />)}
       </div>
-      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-phi-4">
         {[...Array(3)].map((_, i) => <div key={i} className="h-52 rounded-xl bg-white/[0.03]" />)}
       </div>
-      <div className="grid grid-cols-1 lg:grid-cols-3 gap-4">
-        <div className="lg:col-span-2 h-64 rounded-xl bg-white/[0.03]" />
-        <div className="h-64 rounded-xl bg-white/[0.03]" />
+      <div className="flex flex-col lg:flex-row gap-phi-4">
+        <div className="golden-major h-64 rounded-xl bg-white/[0.03]" />
+        <div className="golden-minor h-64 rounded-xl bg-white/[0.03]" />
       </div>
     </div>
   );

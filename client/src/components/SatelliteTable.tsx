@@ -97,13 +97,13 @@ export function SatelliteTable({ satellites }: Props) {
   };
 
   return (
-    <section className="mt-8" role="region" aria-label="Satellite catalog">
-      <h3 className="text-sm font-mono text-gray-400 tracking-wider mb-5 uppercase">
+    <section className="mt-phi-6" role="region" aria-label="Satellite catalog">
+      <h3 className="text-sm font-mono text-gray-400 tracking-wider mb-phi-5 uppercase">
         Satellite Catalog
       </h3>
 
       {/* Filters */}
-      <div className="flex flex-col sm:flex-row gap-3 mb-4">
+      <div className="flex flex-col sm:flex-row gap-phi-3 mb-phi-4">
         <div className="relative flex-1">
           <Search className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-gray-500" aria-hidden="true" />
           <input
@@ -124,7 +124,7 @@ export function SatelliteTable({ satellites }: Props) {
             setHealthFilter(e.target.value);
             setPage(0);
           }}
-          className="bg-white/5 border border-white/10 rounded-lg px-3 py-2 text-sm text-white outline-none focus:border-spacex-blue"
+          className="bg-white/5 border border-white/10 rounded-lg px-phi-3 py-2 text-sm text-white outline-none focus:border-spacex-blue"
           aria-label="Filter by health status"
         >
           <option value="all">All Health</option>
@@ -139,7 +139,7 @@ export function SatelliteTable({ satellites }: Props) {
             setVersionFilter(e.target.value);
             setPage(0);
           }}
-          className="bg-white/5 border border-white/10 rounded-lg px-3 py-2 text-sm text-white outline-none focus:border-spacex-blue"
+          className="bg-white/5 border border-white/10 rounded-lg px-phi-3 py-2 text-sm text-white outline-none focus:border-spacex-blue"
           aria-label="Filter by version"
         >
           <option value="all">All Versions</option>
@@ -149,7 +149,7 @@ export function SatelliteTable({ satellites }: Props) {
         </select>
       </div>
 
-      <p className="text-xs text-gray-500 font-mono mb-3">
+      <p className="text-xs text-gray-500 font-mono mb-phi-3">
         {formatNumber(filtered.length)} SATELLITES | PAGE {page + 1} OF {totalPages}
       </p>
 
@@ -166,9 +166,9 @@ export function SatelliteTable({ satellites }: Props) {
                   { field: "heightKm" as SortField, label: "ALTITUDE" },
                   { field: "ageInDays" as SortField, label: "AGE" },
                 ].map(({ field, label }) => (
-                  <th key={field} className="text-left px-4 py-3">
+                  <th key={field} className="text-left px-phi-4 py-phi-3">
                     <button
-                      className="flex items-center gap-1 text-xs font-mono text-gray-400 tracking-wider hover:text-white transition-colors"
+                      className="flex items-center gap-phi-1 text-xs font-mono text-gray-400 tracking-wider hover:text-white transition-colors"
                       onClick={() => toggleSort(field)}
                       aria-label={`Sort by ${label}`}
                     >
@@ -177,10 +177,10 @@ export function SatelliteTable({ satellites }: Props) {
                     </button>
                   </th>
                 ))}
-                <th className="text-left px-4 py-3 text-xs font-mono text-gray-400 tracking-wider">
+                <th className="text-left px-phi-4 py-phi-3 text-xs font-mono text-gray-400 tracking-wider">
                   LAUNCH DATE
                 </th>
-                <th className="text-left px-4 py-3 text-xs font-mono text-gray-400 tracking-wider">
+                <th className="text-left px-phi-4 py-phi-3 text-xs font-mono text-gray-400 tracking-wider">
                   LAUNCH SITE
                 </th>
               </tr>
@@ -191,7 +191,7 @@ export function SatelliteTable({ satellites }: Props) {
                   key={sat.id}
                   className="border-b border-white/[0.03] hover:bg-white/[0.02] transition-colors"
                 >
-                  <td className="px-4 py-3">
+                  <td className="px-phi-4 py-phi-3">
                     <div>
                       <p className="text-white font-medium">{sat.name}</p>
                       <p className="text-xs text-gray-500 font-mono">
@@ -199,15 +199,15 @@ export function SatelliteTable({ satellites }: Props) {
                       </p>
                     </div>
                   </td>
-                  <td className="px-4 py-3">
-                    <span className="px-2 py-0.5 bg-white/5 rounded text-xs font-mono text-gray-300">
+                  <td className="px-phi-4 py-phi-3">
+                    <span className="px-phi-2 py-0.5 bg-white/5 rounded text-xs font-mono text-gray-300">
                       {sat.version}
                     </span>
                   </td>
-                  <td className="px-4 py-3">
-                    <div className="flex items-center gap-2">
+                  <td className="px-phi-4 py-phi-3">
+                    <div className="flex items-center gap-phi-2">
                       <span
-                        className={`px-2 py-0.5 rounded text-xs font-mono font-medium ${getHealthBgColor(
+                        className={`px-phi-2 py-0.5 rounded text-xs font-mono font-medium ${getHealthBgColor(
                           sat.healthStatus
                         )} ${getHealthColor(sat.healthStatus)}`}
                       >
@@ -218,18 +218,18 @@ export function SatelliteTable({ satellites }: Props) {
                       </span>
                     </div>
                   </td>
-                  <td className="px-4 py-3 text-gray-300 font-mono text-xs">
+                  <td className="px-phi-4 py-phi-3 text-gray-300 font-mono text-xs">
                     {sat.heightKm ? `${sat.heightKm.toFixed(0)} km` : "—"}
                   </td>
-                  <td className="px-4 py-3 text-gray-300 font-mono text-xs">
+                  <td className="px-phi-4 py-phi-3 text-gray-300 font-mono text-xs">
                     {sat.ageInDays > 0
                       ? `${Math.floor(sat.ageInDays / 365)}y ${sat.ageInDays % 365}d`
                       : "—"}
                   </td>
-                  <td className="px-4 py-3 text-gray-400 text-xs">
+                  <td className="px-phi-4 py-phi-3 text-gray-400 text-xs">
                     {formatDate(sat.launchDate)}
                   </td>
-                  <td className="px-4 py-3 text-gray-400 text-xs">
+                  <td className="px-phi-4 py-phi-3 text-gray-400 text-xs">
                     {getLaunchSiteName(sat.site)}
                   </td>
                 </tr>
@@ -240,16 +240,16 @@ export function SatelliteTable({ satellites }: Props) {
       </div>
 
       {/* Pagination */}
-      <div className="flex items-center justify-between mt-4">
+      <div className="flex items-center justify-between mt-phi-4">
         <button
           onClick={() => setPage(Math.max(0, page - 1))}
           disabled={page === 0}
-          className="flex items-center gap-1 px-3 py-1.5 text-sm text-gray-400 hover:text-white disabled:opacity-30 disabled:cursor-not-allowed transition-colors"
+          className="flex items-center gap-phi-1 px-phi-3 py-1.5 text-sm text-gray-400 hover:text-white disabled:opacity-30 disabled:cursor-not-allowed transition-colors"
           aria-label="Previous page"
         >
           <ChevronLeft className="w-4 h-4" /> Previous
         </button>
-        <div className="flex gap-1">
+        <div className="flex gap-phi-1">
           {Array.from({ length: Math.min(5, totalPages) }, (_, i) => {
             const startPage = Math.max(0, Math.min(page - 2, totalPages - 5));
             const p = startPage + i;
@@ -274,7 +274,7 @@ export function SatelliteTable({ satellites }: Props) {
         <button
           onClick={() => setPage(Math.min(totalPages - 1, page + 1))}
           disabled={page >= totalPages - 1}
-          className="flex items-center gap-1 px-3 py-1.5 text-sm text-gray-400 hover:text-white disabled:opacity-30 disabled:cursor-not-allowed transition-colors"
+          className="flex items-center gap-phi-1 px-phi-3 py-1.5 text-sm text-gray-400 hover:text-white disabled:opacity-30 disabled:cursor-not-allowed transition-colors"
           aria-label="Next page"
         >
           Next <ChevronRight className="w-4 h-4" />

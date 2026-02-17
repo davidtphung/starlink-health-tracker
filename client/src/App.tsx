@@ -41,11 +41,11 @@ export default function App() {
 
       {/* Header */}
       <header className="glass sticky top-0 z-50 border-b border-white/5" role="banner">
-        <div className="max-w-[1800px] mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="flex items-center justify-between h-16">
+        <div className="max-w-container mx-auto px-phi-4 sm:px-phi-5 lg:px-phi-6">
+          <div className="flex items-center justify-between h-[55px]">
             {/* Logo */}
             <Link href="/">
-              <div className="flex items-center gap-3 cursor-pointer group" aria-label="Starlink Health Tracker Home">
+              <div className="flex items-center gap-phi-3 cursor-pointer group" aria-label="Starlink Health Tracker Home">
                 <div className="w-8 h-8 rounded-lg bg-spacex-blue/20 flex items-center justify-center group-hover:bg-spacex-blue/30 transition-colors">
                   <Satellite className="w-5 h-5 text-spacex-accent" aria-hidden="true" />
                 </div>
@@ -61,14 +61,14 @@ export default function App() {
             </Link>
 
             {/* Desktop Nav */}
-            <nav className="hidden md:flex items-center gap-1" role="navigation" aria-label="Main navigation">
+            <nav className="hidden md:flex items-center gap-phi-2" role="navigation" aria-label="Main navigation">
               {navItems.map((item) => {
                 const Icon = item.icon;
                 const isActive = location === item.path;
                 return (
                   <Link key={item.path} href={item.path}>
                     <button
-                      className={`flex items-center gap-2 px-4 py-2 rounded-lg text-sm font-medium transition-all ${
+                      className={`flex items-center gap-phi-2 px-phi-4 py-phi-2 rounded-lg text-sm font-medium transition-all ${
                         isActive
                           ? "bg-spacex-blue/20 text-spacex-accent"
                           : "text-gray-400 hover:text-gray-200 hover:bg-white/5"
@@ -97,14 +97,14 @@ export default function App() {
 
         {/* Mobile Nav */}
         {mobileMenuOpen && (
-          <nav className="md:hidden border-t border-white/5 py-2 px-4" role="navigation" aria-label="Mobile navigation">
+          <nav className="md:hidden border-t border-white/5 py-phi-2 px-phi-4" role="navigation" aria-label="Mobile navigation">
             {navItems.map((item) => {
               const Icon = item.icon;
               const isActive = location === item.path;
               return (
                 <Link key={item.path} href={item.path}>
                   <button
-                    className={`flex items-center gap-3 w-full px-4 py-3 rounded-lg text-sm font-medium transition-all ${
+                    className={`flex items-center gap-phi-3 w-full px-phi-4 py-phi-3 rounded-lg text-sm font-medium transition-all ${
                       isActive
                         ? "bg-spacex-blue/20 text-spacex-accent"
                         : "text-gray-400 hover:text-gray-200"
@@ -123,7 +123,7 @@ export default function App() {
       </header>
 
       {/* Main Content */}
-      <main id="main-content" role="main" className="max-w-[1800px] mx-auto">
+      <main id="main-content" role="main" className="max-w-container mx-auto">
         <Suspense fallback={<LoadingFallback />}>
           <Switch>
             <Route path="/" component={Dashboard} />
@@ -148,9 +148,9 @@ export default function App() {
       </main>
 
       {/* Footer */}
-      <footer className="border-t border-white/5 py-6 mt-12" role="contentinfo">
-        <div className="max-w-[1800px] mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="flex flex-col sm:flex-row items-center justify-between gap-4 text-xs text-gray-500">
+      <footer className="border-t border-white/5 py-phi-5 mt-phi-7" role="contentinfo">
+        <div className="max-w-container mx-auto px-phi-4 sm:px-phi-5 lg:px-phi-6">
+          <div className="flex flex-col sm:flex-row items-center justify-between gap-phi-4 text-sm text-gray-500">
             <p>
               Built by{" "}
               <a

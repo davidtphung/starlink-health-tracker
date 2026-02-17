@@ -18,8 +18,34 @@ const config: Config = {
         },
       },
       fontFamily: {
-        display: ['"DM Sans"', "system-ui", "sans-serif"],
+        sans: [
+          '"Helvetica Neue"',
+          "Helvetica",
+          "Arial",
+          "system-ui",
+          "sans-serif",
+        ],
+        display: [
+          '"Helvetica Neue"',
+          "Helvetica",
+          "Arial",
+          "system-ui",
+          "sans-serif",
+        ],
         mono: ['"JetBrains Mono"', "Menlo", "monospace"],
+      },
+      spacing: {
+        "phi-1": "4px",
+        "phi-2": "8px",
+        "phi-3": "13px",
+        "phi-4": "21px",
+        "phi-5": "34px",
+        "phi-6": "55px",
+        "phi-7": "89px",
+        "phi-8": "144px",
+      },
+      maxWidth: {
+        container: "1400px",
       },
       animation: {
         "pulse-slow": "pulse 3s cubic-bezier(0.4, 0, 0.6, 1) infinite",

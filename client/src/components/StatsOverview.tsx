@@ -40,12 +40,12 @@ export function StatsOverview({ stats }: Props) {
   ];
 
   return (
-    <div className="grid grid-cols-2 md:grid-cols-4 gap-4" role="region" aria-label="Constellation statistics">
+    <div className="grid grid-cols-2 md:grid-cols-4 gap-phi-4" role="region" aria-label="Constellation statistics">
       {cards.map((card) => {
         const Icon = card.icon;
         return (
-          <div key={card.label} className="glass rounded-xl p-5 stat-glow">
-            <div className="flex items-center gap-2 mb-3">
+          <div key={card.label} className="glass rounded-xl p-phi-5 stat-glow">
+            <div className="flex items-center gap-phi-2 mb-phi-3">
               <Icon className={`w-4 h-4 ${card.color}`} aria-hidden="true" />
               <span className="text-xs text-gray-400 font-mono tracking-wider uppercase">
                 {card.label}

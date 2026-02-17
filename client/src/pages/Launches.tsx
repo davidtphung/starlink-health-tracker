@@ -31,10 +31,10 @@ export default function Launches() {
   }, [launches, searchQuery, filterYear]);
 
   return (
-    <div className="px-4 sm:px-6 lg:px-8 py-8">
+    <div className="px-phi-4 sm:px-phi-5 lg:px-phi-6 py-phi-6">
       {/* Header */}
-      <div className="mb-8">
-        <div className="flex items-center gap-3 mb-2">
+      <div className="mb-phi-6">
+        <div className="flex items-center gap-phi-3 mb-phi-2">
           <Rocket className="w-5 h-5 text-spacex-accent" aria-hidden="true" />
           <span className="text-xs font-mono text-spacex-accent tracking-widest uppercase">
             Mission History
@@ -43,34 +43,34 @@ export default function Launches() {
         <h2 className="text-3xl font-bold tracking-tight text-white">
           Starlink Launches
         </h2>
-        <p className="text-gray-400 mt-2">
+        <p className="text-gray-400 mt-phi-3 text-base">
           Every Falcon 9 mission that deployed Starlink satellites, with booster and rocket details.
         </p>
       </div>
 
       {/* Launch Stats */}
       {stats && (
-        <div className="grid grid-cols-2 sm:grid-cols-4 gap-4 mb-8">
-          <div className="glass rounded-xl p-4 stat-glow">
+        <div className="grid grid-cols-2 sm:grid-cols-4 gap-phi-4 mb-phi-6">
+          <div className="glass rounded-xl p-phi-4 stat-glow">
             <p className="text-xs text-gray-400 font-mono">TOTAL MISSIONS</p>
-            <p className="text-2xl font-bold text-white mt-1">{stats.totalStarlinkLaunches}</p>
+            <p className="text-2xl font-bold text-white mt-phi-1">{stats.totalStarlinkLaunches}</p>
           </div>
-          <div className="glass rounded-xl p-4 stat-glow">
+          <div className="glass rounded-xl p-phi-4 stat-glow">
             <p className="text-xs text-gray-400 font-mono">UNIQUE BOOSTERS</p>
-            <p className="text-2xl font-bold text-white mt-1">{stats.uniqueBoosters}</p>
+            <p className="text-2xl font-bold text-white mt-phi-1">{stats.uniqueBoosters}</p>
           </div>
-          <div className="glass rounded-xl p-4 stat-glow">
+          <div className="glass rounded-xl p-phi-4 stat-glow">
             <p className="text-xs text-gray-400 font-mono">MOST FLOWN</p>
-            <p className="text-2xl font-bold text-spacex-accent mt-1">
+            <p className="text-2xl font-bold text-spacex-accent mt-phi-1">
               {stats.mostFlownBooster?.serial || "N/A"}
             </p>
             <p className="text-xs text-gray-500">
               {stats.mostFlownBooster ? `${stats.mostFlownBooster.flights} flights` : ""}
             </p>
           </div>
-          <div className="glass rounded-xl p-4 stat-glow">
+          <div className="glass rounded-xl p-phi-4 stat-glow">
             <p className="text-xs text-gray-400 font-mono">TOTAL DEPLOYED</p>
-            <p className="text-2xl font-bold text-white mt-1">
+            <p className="text-2xl font-bold text-white mt-phi-1">
               {formatNumber(stats.totalSatellites)}
             </p>
           </div>
@@ -78,7 +78,7 @@ export default function Launches() {
       )}
 
       {/* Filters */}
-      <div className="flex flex-col sm:flex-row gap-4 mb-6">
+      <div className="flex flex-col sm:flex-row gap-phi-4 mb-phi-5">
         <div className="relative flex-1">
           <Search className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-gray-500" aria-hidden="true" />
           <input
@@ -93,7 +93,7 @@ export default function Launches() {
         <select
           value={filterYear}
           onChange={(e) => setFilterYear(e.target.value)}
-          className="bg-white/5 border border-white/10 rounded-lg px-4 py-2.5 text-sm text-white appearance-none cursor-pointer outline-none focus:border-spacex-blue"
+          className="bg-white/5 border border-white/10 rounded-lg px-phi-4 py-2.5 text-sm text-white appearance-none cursor-pointer outline-none focus:border-spacex-blue"
           aria-label="Filter by year"
         >
           <option value="all">All Years</option>
@@ -105,14 +105,14 @@ export default function Launches() {
 
       {/* Launch List */}
       {isLoading ? (
-        <div className="space-y-4 animate-pulse">
+        <div className="space-y-phi-4 animate-pulse">
           {[...Array(6)].map((_, i) => (
             <div key={i} className="h-20 rounded-xl bg-white/5" />
           ))}
         </div>
       ) : (
-        <div className="space-y-3">
-          <p className="text-sm text-gray-500 font-mono mb-4">
+        <div className="space-y-phi-3">
+          <p className="text-sm text-gray-500 font-mono mb-phi-4">
             {filtered.length} MISSION{filtered.length !== 1 ? "S" : ""} FOUND
           </p>
           {filtered.map((launch) => (
@@ -146,7 +146,7 @@ function LaunchCard({ launch, expanded, onToggle }: LaunchCardProps) {
     <div className="glass rounded-xl overflow-hidden transition-all hover:border-spacex-blue/30">
       {/* Main row */}
       <button
-        className="w-full flex items-center gap-4 p-4 text-left"
+        className="w-full flex items-center gap-phi-4 p-phi-4 text-left"
         onClick={onToggle}
         aria-expanded={expanded}
         aria-label={`${launch.name} - ${launch.success ? "Successful" : launch.success === false ? "Failed" : "Pending"}`}
@@ -158,10 +158,10 @@ function LaunchCard({ launch, expanded, onToggle }: LaunchCardProps) {
             {formatDateTime(launch.dateUtc)}
           </p>
         </div>
-        <div className="hidden sm:flex items-center gap-4 text-sm text-gray-400">
+        <div className="hidden sm:flex items-center gap-phi-4 text-sm text-gray-400">
           <span className="font-mono">{launch.rocketName}</span>
           {launch.cores[0] && (
-            <span className="px-2 py-0.5 bg-white/5 rounded text-xs font-mono">
+            <span className="px-phi-2 py-0.5 bg-white/5 rounded text-xs font-mono">
               {launch.cores[0].serial}
             </span>
           )}
@@ -184,32 +184,32 @@ function LaunchCard({ launch, expanded, onToggle }: LaunchCardProps) {
             transition={{ duration: 0.2 }}
             className="overflow-hidden"
           >
-            <div className="px-4 pb-4 border-t border-white/5 pt-4">
-              <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 text-sm">
+            <div className="px-phi-4 pb-phi-4 border-t border-white/5 pt-phi-4">
+              <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-phi-4 text-sm">
                 {/* Launch Site */}
                 <div>
-                  <p className="text-xs text-gray-500 font-mono mb-1">LAUNCH SITE</p>
+                  <p className="text-xs text-gray-500 font-mono mb-phi-1">LAUNCH SITE</p>
                   <p className="text-gray-200">{launch.launchpadName}</p>
                   <p className="text-xs text-gray-400">{launch.launchpadLocality}</p>
                 </div>
 
                 {/* Rocket */}
                 <div>
-                  <p className="text-xs text-gray-500 font-mono mb-1">VEHICLE</p>
+                  <p className="text-xs text-gray-500 font-mono mb-phi-1">VEHICLE</p>
                   <p className="text-gray-200">{launch.rocketName}</p>
                   <p className="text-xs text-gray-400">Flight #{launch.flightNumber}</p>
                 </div>
 
                 {/* Payload */}
                 <div>
-                  <p className="text-xs text-gray-500 font-mono mb-1">STARLINK PAYLOAD</p>
+                  <p className="text-xs text-gray-500 font-mono mb-phi-1">STARLINK PAYLOAD</p>
                   <p className="text-gray-200">{launch.starlinkCount} satellites</p>
                 </div>
 
                 {/* Booster Details */}
                 {launch.cores.map((core, i) => (
                   <div key={i}>
-                    <p className="text-xs text-gray-500 font-mono mb-1">BOOSTER {i + 1}</p>
+                    <p className="text-xs text-gray-500 font-mono mb-phi-1">BOOSTER {i + 1}</p>
                     <p className="text-gray-200 font-mono">{core.serial}</p>
                     <p className="text-xs text-gray-400">
                       Flight {core.flight} | {core.reused ? "Reused" : "New"} |{" "}
@@ -225,20 +225,20 @@ function LaunchCard({ launch, expanded, onToggle }: LaunchCardProps) {
                 {/* Mission Details */}
                 {launch.details && (
                   <div className="sm:col-span-2 lg:col-span-3">
-                    <p className="text-xs text-gray-500 font-mono mb-1">MISSION NOTES</p>
+                    <p className="text-xs text-gray-500 font-mono mb-phi-1">MISSION NOTES</p>
                     <p className="text-gray-300 text-sm">{launch.details}</p>
                   </div>
                 )}
               </div>
 
               {/* Links */}
-              <div className="flex gap-3 mt-4 pt-3 border-t border-white/5">
+              <div className="flex gap-phi-3 mt-phi-4 pt-phi-3 border-t border-white/5">
                 {launch.links.webcast && (
                   <a
                     href={launch.links.webcast}
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="flex items-center gap-1.5 text-xs text-spacex-accent hover:underline"
+                    className="flex items-center gap-phi-1 text-xs text-spacex-accent hover:underline"
                   >
                     <ExternalLink className="w-3 h-3" /> Webcast
                   </a>
@@ -248,7 +248,7 @@ function LaunchCard({ launch, expanded, onToggle }: LaunchCardProps) {
                     href={launch.links.article}
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="flex items-center gap-1.5 text-xs text-spacex-accent hover:underline"
+                    className="flex items-center gap-phi-1 text-xs text-spacex-accent hover:underline"
                   >
                     <ExternalLink className="w-3 h-3" /> Article
                   </a>
@@ -258,7 +258,7 @@ function LaunchCard({ launch, expanded, onToggle }: LaunchCardProps) {
                     href={launch.links.wikipedia}
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="flex items-center gap-1.5 text-xs text-spacex-accent hover:underline"
+                    className="flex items-center gap-phi-1 text-xs text-spacex-accent hover:underline"
                   >
                     <ExternalLink className="w-3 h-3" /> Wikipedia
                   </a>

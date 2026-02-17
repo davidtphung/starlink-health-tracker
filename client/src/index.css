@@ -17,9 +17,11 @@ html, body, #root {
 body {
   background-color: #000000;
   color: rgba(240, 240, 250, 1);
-  font-family: "DM Sans", system-ui, sans-serif;
+  font-family: "Helvetica Neue", Helvetica, Arial, system-ui, sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+  line-height: 1.618;
+  letter-spacing: -0.011em;
 }
 
 /* Custom scrollbar */
@@ -104,4 +106,13 @@ body {
 
 .sat-dot {
   animation: sat-pulse 2s ease-in-out infinite;
+}
+
+/* Golden ratio layout utilities */
+.golden-major {
+  flex: 1.618;
+}
+
+.golden-minor {
+  flex: 1;
 }

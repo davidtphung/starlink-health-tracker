@@ -46,13 +46,13 @@ export function HealthBreakdown({ stats }: Props) {
     .slice(0, 5);
 
   return (
-    <div className="glass rounded-xl p-6" role="region" aria-label="Health breakdown">
-      <h3 className="text-sm font-mono text-gray-400 tracking-wider mb-5 uppercase">
+    <div className="glass rounded-xl p-phi-5" role="region" aria-label="Health breakdown">
+      <h3 className="text-sm font-mono text-gray-400 tracking-wider mb-phi-5 uppercase">
         Constellation Health
       </h3>
 
       {/* Health Bar */}
-      <div className="flex h-3 rounded-full overflow-hidden mb-6" role="img" aria-label="Health distribution bar">
+      <div className="flex h-3 rounded-full overflow-hidden mb-phi-5" role="img" aria-label="Health distribution bar">
         {healthData.map((h) => (
           <div
             key={h.label}
@@ -64,11 +64,11 @@ export function HealthBreakdown({ stats }: Props) {
       </div>
 
       {/* Health Legend */}
-      <div className="grid grid-cols-2 gap-3 mb-6">
+      <div className="grid grid-cols-2 gap-phi-3 mb-phi-5">
         {healthData.map((h) => {
           const Icon = h.icon;
           return (
-            <div key={h.label} className="flex items-center gap-3">
+            <div key={h.label} className="flex items-center gap-phi-3">
               <Icon className={`w-4 h-4 ${h.textColor}`} aria-hidden="true" />
               <div>
                 <p className="text-sm text-white">{h.label}</p>
@@ -82,13 +82,13 @@ export function HealthBreakdown({ stats }: Props) {
       </div>
 
       {/* Version Breakdown */}
-      <div className="border-t border-white/5 pt-4">
-        <h4 className="text-xs font-mono text-gray-500 mb-3 tracking-wider">BY VERSION</h4>
-        <div className="space-y-2">
+      <div className="border-t border-white/5 pt-phi-4">
+        <h4 className="text-xs font-mono text-gray-500 mb-phi-3 tracking-wider">BY VERSION</h4>
+        <div className="space-y-phi-2">
           {versions.map(([version, count]) => (
             <div key={version} className="flex items-center justify-between">
               <span className="text-sm text-gray-300 font-mono">{version}</span>
-              <div className="flex items-center gap-3">
+              <div className="flex items-center gap-phi-3">
                 <div className="w-32 h-1.5 bg-white/5 rounded-full overflow-hidden">
                   <div
                     className="h-full bg-spacex-blue rounded-full"
