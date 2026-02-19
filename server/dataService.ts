@@ -4,6 +4,8 @@ import type {
   ConstellationStats,
   FunFact,
   CoreInfo,
+  LiveLaunchData,
+  WebcastLink,
 } from "../shared/types.js";
 
 // CelesTrak OMM JSON format
@@ -643,6 +645,184 @@ export class DataService {
 
     this.setCache("funfacts", facts);
     return facts;
+  }
+
+  async getLiveLaunchData(): Promise<LiveLaunchData> {
+    const cached = this.getCached<LiveLaunchData>("live");
+    if (cached) return cached;
+
+    const LIVE_CACHE_TTL = 2 * 60 * 1000; // 2 minutes for live data
+
+    let nextLaunch: LiveLaunchData["nextLaunch"] = null;
+    const recentPastLaunches: LiveLaunchData["recentPastLaunches"] = [];
+    let isLiveNow = false;
+    let countdownSeconds: number | null = null;
+
+    try {
+      // Fetch upcoming Starlink launches from LL2
+      const [upcomingRes, recentRes] = await Promise.all([
+        fetch(
+          "https://ll.thespacedevs.com/2.2.0/launch/upcoming/?search=starlink&limit=5&ordering=net&format=json",
+          { signal: AbortSignal.timeout(10000) }
+        ).catch(() => null),
+        fetch(
+          "https://ll.thespacedevs.com/2.2.0/launch/previous/?search=starlink&limit=3&ordering=-net&format=json",
+          { signal: AbortSignal.timeout(10000) }
+        ).catch(() => null),
+      ]);
+
+      // Process upcoming launch
+      if (upcomingRes?.ok) {
+        const upcomingData = await upcomingRes.json();
+        const results = upcomingData.results || [];
+
+        for (const launch of results) {
+          if (!launch.name?.toLowerCase().includes("starlink")) continue;
+
+          const webcasts: WebcastLink[] = (launch.vid_urls || []).map((v: { url: string; title: string; source: { name: string }; live?: boolean }) => ({
+            url: v.url,
+            title: v.title || "Webcast",
+            source: v.source?.name || "Unknown",
+            live: v.live || false,
+          }));
+
+          // Also check vidURLs (older format)
+          if (webcasts.length === 0 && launch.vidURLs) {
+            for (const v of launch.vidURLs) {
+              webcasts.push({
+                url: v.url || v,
+                title: v.title || "Webcast",
+                source: v.source?.name || "Unknown",
+                live: false,
+              });
+            }
+          }
+
+          const statusId = launch.status?.id;
+          const statusName = launch.status?.name || "Unknown";
+          // LL2 status IDs: 1=Go, 2=TBD, 3=Success, 4=Failure, 5=Hold, 6=In Flight, 8=TBC
+          const isInFlight = statusId === 6;
+          const isGo = statusId === 1;
+
+          // Check if any webcast is live
+          const hasLiveWebcast = webcasts.some((w) => w.live);
+
+          // Determine if launch is currently live
+          const launchTime = new Date(launch.net).getTime();
+          const now = Date.now();
+          const timeDiff = (launchTime - now) / 1000;
+
+          // Consider "live" if in flight, or within 30 min of launch and status is Go
+          if (isInFlight || hasLiveWebcast || (isGo && timeDiff < 1800 && timeDiff > -7200)) {
+            isLiveNow = true;
+          }
+
+          countdownSeconds = timeDiff > 0 ? Math.floor(timeDiff) : null;
+
+          // Extract booster info
+          let booster: { serial: string; flights: number } | null = null;
+          if (launch.rocket?.launcher_stage) {
+            for (const stage of launch.rocket.launcher_stage) {
+              if (stage.launcher?.serial_number) {
+                booster = {
+                  serial: stage.launcher.serial_number,
+                  flights: stage.launcher.flights || 1,
+                };
+                break;
+              }
+            }
+          }
+
+          nextLaunch = {
+            id: launch.id,
+            name: launch.name,
+            net: launch.net,
+            status: statusName,
+            statusDescription: launch.status?.description || "",
+            rocketName: launch.rocket?.configuration?.name || "Falcon 9",
+            padName: launch.pad?.name || "Unknown",
+            padLocation: launch.pad?.location?.name || "Unknown",
+            missionDescription: launch.mission?.description || null,
+            image: launch.image || null,
+            webcasts,
+            booster,
+          };
+          break; // Only need the first upcoming Starlink launch
+        }
+      }
+
+      // Process recent past launches for replay links
+      if (recentRes?.ok) {
+        const recentData = await recentRes.json();
+        for (const launch of recentData.results || []) {
+          if (!launch.name?.toLowerCase().includes("starlink")) continue;
+
+          const webcasts: WebcastLink[] = (launch.vid_urls || []).map((v: { url: string; title: string; source: { name: string } }) => ({
+            url: v.url,
+            title: v.title || "Webcast",
+            source: v.source?.name || "Unknown",
+            live: false,
+          }));
+
+          if (webcasts.length === 0 && launch.vidURLs) {
+            for (const v of launch.vidURLs) {
+              webcasts.push({
+                url: v.url || v,
+                title: v.title || "Replay",
+                source: v.source?.name || "Unknown",
+                live: false,
+              });
+            }
+          }
+
+          recentPastLaunches.push({
+            id: launch.id,
+            name: launch.name,
+            net: launch.net,
+            status: launch.status?.name || "Unknown",
+            webcasts,
+            image: launch.image || null,
+          });
+        }
+      }
+    } catch (err) {
+      console.warn("LL2 live data unavailable:", err);
+    }
+
+    // If no LL2 data, try to build from SpaceX API webcast links
+    if (!nextLaunch && recentPastLaunches.length === 0) {
+      try {
+        const launches = await this.getLaunches();
+        // Get recent launches with webcast links
+        const withWebcast = launches
+          .filter((l) => l.links.webcast)
+          .slice(0, 3);
+        for (const l of withWebcast) {
+          recentPastLaunches.push({
+            id: l.id,
+            name: l.name,
+            net: l.dateUtc,
+            status: l.success ? "Success" : l.success === false ? "Failure" : "Unknown",
+            webcasts: l.links.webcast
+              ? [{ url: l.links.webcast, title: "Webcast Replay", source: "YouTube", live: false }]
+              : [],
+            image: l.links.patch,
+          });
+        }
+      } catch {
+        // Best effort
+      }
+    }
+
+    const result: LiveLaunchData = {
+      nextLaunch,
+      recentPastLaunches,
+      isLiveNow,
+      countdownSeconds,
+    };
+
+    this.setCache("live", result);
+    return result;
   }
 }
 

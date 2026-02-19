@@ -48,6 +48,17 @@ export function registerRoutes(app: Express) {
     }
   });
 
+  // Get live/upcoming launch data
+  app.get("/api/live", async (_req, res) => {
+    try {
+      const liveData = await dataService.getLiveLaunchData();
+      res.json(liveData);
+    } catch (err) {
+      console.error("Error fetching live data:", err);
+      res.status(500).json({ error: "Failed to fetch live launch data" });
+    }
+  });
+
   // Single satellite detail
   app.get("/api/satellites/:noradId", async (req, res) => {
     try {

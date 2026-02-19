@@ -1,6 +1,6 @@
 import { useQuery } from "@tanstack/react-query";
 import { apiFetch } from "../lib/queryClient";
-import type { StarlinkSatellite, SpaceXLaunch, ConstellationStats, FunFact } from "@shared/types";
+import type { StarlinkSatellite, SpaceXLaunch, ConstellationStats, FunFact, LiveLaunchData } from "@shared/types";
 
 export function useSatellites() {
   return useQuery<StarlinkSatellite[]>({
@@ -31,5 +31,14 @@ export function useFunFacts() {
     queryKey: ["funfacts"],
     queryFn: () => apiFetch("/api/fun-facts"),
     staleTime: 10 * 60 * 1000,
+  });
+}
+
+export function useLiveLaunch() {
+  return useQuery<LiveLaunchData>({
+    queryKey: ["live"],
+    queryFn: () => apiFetch("/api/live"),
+    staleTime: 2 * 60 * 1000,
+    refetchInterval: 60 * 1000, // Refetch every 60s for live data
   });
 }

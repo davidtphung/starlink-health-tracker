@@ -82,3 +82,40 @@ export interface FunFact {
   description: string;
   icon: string;
 }
+
+export interface WebcastLink {
+  url: string;
+  title: string;
+  source: string;
+  live: boolean;
+}
+
+export interface LiveLaunchData {
+  nextLaunch: {
+    id: string;
+    name: string;
+    net: string; // ISO date string — "No Earlier Than"
+    status: string; // "Go", "TBD", "Hold", "In Flight", "Success", "Failure"
+    statusDescription: string;
+    rocketName: string;
+    padName: string;
+    padLocation: string;
+    missionDescription: string | null;
+    image: string | null;
+    webcasts: WebcastLink[];
+    booster: {
+      serial: string;
+      flights: number;
+    } | null;
+  } | null;
+  recentPastLaunches: Array<{
+    id: string;
+    name: string;
+    net: string;
+    status: string;
+    webcasts: WebcastLink[];
+    image: string | null;
+  }>;
+  isLiveNow: boolean;
+  countdownSeconds: number | null;
+}

@@ -1,12 +1,13 @@
 import { Route, Switch, Link, useLocation } from "wouter";
 import { Suspense, lazy } from "react";
-import { Satellite, Rocket, BarChart3, Info, Menu, X } from "lucide-react";
+import { Satellite, Rocket, BarChart3, Info, Menu, X, Radio } from "lucide-react";
 import { useState } from "react";
 
 const Dashboard = lazy(() => import("./pages/Dashboard"));
 const GlobeView = lazy(() => import("./pages/GlobeView"));
 const Launches = lazy(() => import("./pages/Launches"));
 const About = lazy(() => import("./pages/About"));
+const Live = lazy(() => import("./pages/Live"));
 
 function LoadingFallback() {
   return (
@@ -29,6 +30,7 @@ export default function App() {
     { path: "/", label: "Dashboard", icon: BarChart3 },
     { path: "/globe", label: "3D Globe", icon: Satellite },
     { path: "/launches", label: "Missions", icon: Rocket },
+    { path: "/live", label: "Live", icon: Radio },
     { path: "/about", label: "About", icon: Info },
   ];
 
@@ -129,6 +131,7 @@ export default function App() {
             <Route path="/" component={Dashboard} />
             <Route path="/globe" component={GlobeView} />
             <Route path="/launches" component={Launches} />
+            <Route path="/live" component={Live} />
             <Route path="/about" component={About} />
             <Route>
               <div className="flex items-center justify-center h-[60vh]">
