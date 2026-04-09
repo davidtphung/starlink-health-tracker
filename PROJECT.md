@@ -1,6 +1,6 @@
 # Starlink Health Tracker
 
-**Version:** 2.2  
+**Version:** 2.3  
 **Date:** April 9, 2026  
 **Live:** [starlinkhealth.davidtphung.com](https://starlinkhealth.davidtphung.com/)  
 **Author:** [David T Phung](https://x.com/davidtphung)
@@ -48,6 +48,7 @@ Real-time monitoring dashboard for SpaceX's Starlink satellite constellation. Ag
 
 | Version | Date | Changes |
 |---------|------|---------|
+| 2.3 | 2026-04-09 | Version breakdown, Direct-to-Cell tagging, age analysis, launch group timeline |
 | 2.2 | 2026-04-09 | Starlink-inspired redesign: Inter font, minimal nav, refined cards, improved readability, new favicon, removed tech stack from About, updated footer to v2.2 |
 | 2.1 | 2025-03-31 | Live launch page with countdown timer and webcast links |
 | 2.0 | 2025-02-19 | Golden ratio layout, Helvetica typography, aggregate dashboard |
