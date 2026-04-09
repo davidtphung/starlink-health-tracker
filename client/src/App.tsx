@@ -11,11 +11,11 @@ const Live = lazy(() => import("./pages/Live"));
 
 function LoadingFallback() {
   return (
-    <div className="flex items-center justify-center h-screen bg-spacex-darker">
+    <div className="flex items-center justify-center h-screen bg-black">
       <div className="flex flex-col items-center gap-4">
-        <div className="w-12 h-12 border-2 border-spacex-blue border-t-transparent rounded-full animate-spin" />
-        <p className="text-spacex-accent font-mono text-sm tracking-wider">
-          LOADING TELEMETRY...
+        <div className="w-10 h-10 border-[1.5px] border-white/20 border-t-white/80 rounded-full animate-spin" />
+        <p className="text-white/40 text-xs tracking-[0.2em] uppercase">
+          Loading
         </p>
       </div>
     </div>
@@ -28,56 +28,48 @@ export default function App() {
 
   const navItems = [
     { path: "/", label: "Dashboard", icon: BarChart3 },
-    { path: "/globe", label: "3D Globe", icon: Satellite },
+    { path: "/globe", label: "Globe", icon: Satellite },
     { path: "/launches", label: "Missions", icon: Rocket },
     { path: "/live", label: "Live", icon: Radio },
     { path: "/about", label: "About", icon: Info },
   ];
 
   return (
-    <div className="min-h-screen bg-black text-[rgba(240,240,250,1)]">
-      {/* Skip link for accessibility */}
+    <div className="min-h-screen bg-black text-white/90">
       <a href="#main-content" className="skip-link">
         Skip to main content
       </a>
 
-      {/* Header */}
-      <header className="glass sticky top-0 z-50 border-b border-white/5" role="banner">
+      {/* Header — clean, minimal like Starlink */}
+      <header className="sticky top-0 z-50 border-b border-white/[0.06] bg-black/80 backdrop-blur-xl" role="banner">
         <div className="max-w-container mx-auto px-phi-4 sm:px-phi-5 lg:px-phi-6">
-          <div className="flex items-center justify-between h-[55px]">
+          <div className="flex items-center justify-between h-14">
             {/* Logo */}
             <Link href="/">
-              <div className="flex items-center gap-phi-3 cursor-pointer group" aria-label="Starlink Health Tracker Home">
-                <div className="w-8 h-8 rounded-lg bg-spacex-blue/20 flex items-center justify-center group-hover:bg-spacex-blue/30 transition-colors">
-                  <Satellite className="w-5 h-5 text-spacex-accent" aria-hidden="true" />
+              <div className="flex items-center gap-3 cursor-pointer group" aria-label="Starlink Health Tracker Home">
+                <div className="relative">
+                  <Satellite className="w-[18px] h-[18px] text-white/80 group-hover:text-white transition-colors" aria-hidden="true" />
                 </div>
-                <div>
-                  <h1 className="text-lg font-semibold tracking-tight gradient-text">
-                    STARLINK TRACKER
-                  </h1>
-                  <p className="text-[10px] text-gray-500 font-mono tracking-widest -mt-1">
-                    HEALTH MONITOR
-                  </p>
-                </div>
+                <span className="text-[13px] font-semibold tracking-[0.15em] uppercase text-white/90 group-hover:text-white transition-colors">
+                  Starlink Health
+                </span>
               </div>
             </Link>
 
-            {/* Desktop Nav */}
-            <nav className="hidden md:flex items-center gap-phi-2" role="navigation" aria-label="Main navigation">
+            {/* Desktop Nav — minimal text links */}
+            <nav className="hidden md:flex items-center gap-1" role="navigation" aria-label="Main navigation">
               {navItems.map((item) => {
-                const Icon = item.icon;
                 const isActive = location === item.path;
                 return (
                   <Link key={item.path} href={item.path}>
                     <button
-                      className={`flex items-center gap-phi-2 px-phi-4 py-phi-2 rounded-lg text-sm font-medium transition-all ${
+                      className={`px-4 py-2 text-[13px] font-medium tracking-wide transition-colors rounded-lg ${
                         isActive
-                          ? "bg-spacex-blue/20 text-spacex-accent"
-                          : "text-gray-400 hover:text-gray-200 hover:bg-white/5"
+                          ? "text-white bg-white/[0.06]"
+                          : "text-white/40 hover:text-white/70"
                       }`}
                       aria-current={isActive ? "page" : undefined}
                     >
-                      <Icon className="w-4 h-4" aria-hidden="true" />
                       {item.label}
                     </button>
                   </Link>
@@ -87,29 +79,29 @@ export default function App() {
 
             {/* Mobile menu button */}
             <button
-              className="md:hidden p-2 text-gray-400 hover:text-white"
+              className="md:hidden p-2 text-white/40 hover:text-white transition-colors"
               onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
               aria-label={mobileMenuOpen ? "Close menu" : "Open menu"}
               aria-expanded={mobileMenuOpen}
             >
-              {mobileMenuOpen ? <X className="w-6 h-6" /> : <Menu className="w-6 h-6" />}
+              {mobileMenuOpen ? <X className="w-5 h-5" /> : <Menu className="w-5 h-5" />}
             </button>
           </div>
         </div>
 
         {/* Mobile Nav */}
         {mobileMenuOpen && (
-          <nav className="md:hidden border-t border-white/5 py-phi-2 px-phi-4" role="navigation" aria-label="Mobile navigation">
+          <nav className="md:hidden border-t border-white/[0.06] py-2 px-phi-4" role="navigation" aria-label="Mobile navigation">
             {navItems.map((item) => {
               const Icon = item.icon;
               const isActive = location === item.path;
               return (
                 <Link key={item.path} href={item.path}>
                   <button
-                    className={`flex items-center gap-phi-3 w-full px-phi-4 py-phi-3 rounded-lg text-sm font-medium transition-all ${
+                    className={`flex items-center gap-3 w-full px-4 py-3 rounded-lg text-sm font-medium transition-colors ${
                       isActive
-                        ? "bg-spacex-blue/20 text-spacex-accent"
-                        : "text-gray-400 hover:text-gray-200"
+                        ? "bg-white/[0.06] text-white"
+                        : "text-white/40 hover:text-white/70"
                     }`}
                     onClick={() => setMobileMenuOpen(false)}
                     aria-current={isActive ? "page" : undefined}
@@ -136,11 +128,11 @@ export default function App() {
             <Route>
               <div className="flex items-center justify-center h-[60vh]">
                 <div className="text-center">
-                  <h2 className="text-4xl font-bold gradient-text mb-4">404</h2>
-                  <p className="text-gray-400">Signal lost. Page not found.</p>
+                  <h2 className="text-5xl font-bold text-white mb-3">404</h2>
+                  <p className="text-white/40 text-sm">Page not found</p>
                   <Link href="/">
-                    <button className="mt-6 px-6 py-2 bg-spacex-blue/20 text-spacex-accent rounded-lg hover:bg-spacex-blue/30 transition-colors">
-                      Return to Dashboard
+                    <button className="mt-8 px-6 py-2.5 text-sm font-medium text-white border border-white/10 rounded-lg hover:bg-white/[0.06] transition-colors">
+                      Back to Dashboard
                     </button>
                   </Link>
                 </div>
@@ -150,23 +142,24 @@ export default function App() {
         </Suspense>
       </main>
 
-      {/* Footer */}
-      <footer className="border-t border-white/5 py-phi-5 mt-phi-7" role="contentinfo">
-        <div className="max-w-container mx-auto px-phi-4 sm:px-phi-5 lg:px-phi-6">
-          <div className="flex flex-col sm:flex-row items-center justify-between gap-phi-4 text-sm text-gray-500">
-            <p>
-              Built by{" "}
+      {/* Footer — minimal */}
+      <footer className="border-t border-white/[0.06] mt-phi-7" role="contentinfo">
+        <div className="max-w-container mx-auto px-phi-4 sm:px-phi-5 lg:px-phi-6 py-8">
+          <div className="flex flex-col sm:flex-row items-center justify-between gap-4 text-xs text-white/30">
+            <div className="flex items-center gap-1.5">
+              <span>Built by</span>
               <a
                 href="https://x.com/davidtphung"
                 target="_blank"
                 rel="noopener noreferrer"
-                className="text-spacex-accent hover:underline"
+                className="text-white/50 hover:text-white/70 transition-colors"
               >
                 David T Phung
-              </a>{" "}
-              | Data from SpaceX API &amp; CelesTrak
-            </p>
-            <p className="font-mono tracking-wider">STARLINK HEALTH TRACKER v1.0</p>
+              </a>
+              <span className="mx-1 text-white/10">|</span>
+              <span>Data from SpaceX API & CelesTrak</span>
+            </div>
+            <span className="tracking-[0.15em] uppercase">v2.2</span>
           </div>
         </div>
       </footer>

@@ -21,7 +21,7 @@ function CountdownTimer({ targetDate }: { targetDate: string }) {
 
   if (diff <= 0) {
     return (
-      <div className="text-spacex-accent font-mono text-lg tracking-wider">
+      <div className="text-white/50 font-mono text-lg tracking-wider">
         T-00:00:00
       </div>
     );
@@ -29,7 +29,7 @@ function CountdownTimer({ targetDate }: { targetDate: string }) {
 
   return (
     <div className="flex items-center gap-phi-4">
-      <span className="text-xs text-gray-500 font-mono">T-MINUS</span>
+      <span className="text-xs text-white/25 font-mono">T-MINUS</span>
       <div className="flex gap-phi-3">
         {days > 0 && (
           <TimeUnit value={days} label="DAYS" />
@@ -48,7 +48,7 @@ function TimeUnit({ value, label }: { value: number; label: string }) {
       <div className="text-2xl sm:text-3xl font-bold text-white font-mono tabular-nums">
         {String(value).padStart(2, "0")}
       </div>
-      <div className="text-[10px] text-gray-500 font-mono tracking-widest">{label}</div>
+      <div className="text-[10px] text-white/25 font-mono tracking-widest">{label}</div>
     </div>
   );
 }
@@ -70,7 +70,7 @@ function WebcastButton({ webcast }: { webcast: WebcastLink }) {
       className={`flex items-center gap-phi-2 px-phi-4 py-phi-3 rounded-lg text-sm font-medium transition-all ${
         webcast.live
           ? "bg-red-600/20 border border-red-500/30 text-red-400 hover:bg-red-600/30"
-          : "bg-white/5 border border-white/10 text-gray-300 hover:bg-white/10"
+          : "bg-white/5 border border-white/10 text-white/60 hover:bg-white/10"
       }`}
     >
       {webcast.live ? (
@@ -153,8 +153,8 @@ export default function Live() {
       {/* Header */}
       <div className="mb-phi-6">
         <div className="flex items-center gap-phi-3 mb-phi-2">
-          <Radio className="w-5 h-5 text-spacex-accent" aria-hidden="true" />
-          <span className="text-xs font-mono text-spacex-accent tracking-widest uppercase">
+          <Radio className="w-5 h-5 text-white/50" aria-hidden="true" />
+          <span className="text-[11px] font-medium text-white/30 tracking-[0.12em] uppercase">
             Launch Broadcast
           </span>
           {isLive && <LiveBadge />}
@@ -167,7 +167,7 @@ export default function Live() {
       {nextLaunch ? (
         <div className="space-y-phi-5">
           {/* Main launch card */}
-          <div className="glass rounded-xl overflow-hidden">
+          <div className="card rounded-xl overflow-hidden">
             {/* Embedded video or hero image */}
             {isLive && youtubeWebcast ? (
               <YouTubeEmbed url={youtubeWebcast.url} />
@@ -183,7 +183,7 @@ export default function Live() {
                   <h3 className="text-xl sm:text-2xl font-bold text-white mb-phi-2">
                     {nextLaunch.name}
                   </h3>
-                  <div className="flex items-center gap-phi-3 text-sm text-gray-300">
+                  <div className="flex items-center gap-phi-3 text-sm text-white/60">
                     <span className="font-mono">{nextLaunch.rocketName}</span>
                     {nextLaunch.booster && (
                       <span className="px-phi-2 py-0.5 bg-white/10 rounded text-xs font-mono">
@@ -204,50 +204,50 @@ export default function Live() {
               )}
 
               {/* Countdown */}
-              <div className="glass rounded-xl p-phi-5 mb-phi-5">
+              <div className="card rounded-xl p-phi-5 mb-phi-5">
                 <CountdownTimer targetDate={nextLaunch.net} />
               </div>
 
               {/* Mission details grid */}
               <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-phi-4 mb-phi-5">
                 <div>
-                  <p className="text-xs text-gray-500 font-mono mb-phi-1">STATUS</p>
+                  <p className="text-xs text-white/25 font-mono mb-phi-1">STATUS</p>
                   <p className={`font-medium ${
                     isLive ? "text-red-400" :
                     nextLaunch.status === "Go" ? "text-spacex-success" :
                     nextLaunch.status === "TBD" || nextLaunch.status === "TBC" ? "text-spacex-warning" :
-                    "text-gray-300"
+                    "text-white/60"
                   }`}>
                     {isLive ? "IN PROGRESS" : nextLaunch.status}
                   </p>
                 </div>
                 <div>
-                  <p className="text-xs text-gray-500 font-mono mb-phi-1">VEHICLE</p>
-                  <p className="text-gray-200">{nextLaunch.rocketName}</p>
+                  <p className="text-xs text-white/25 font-mono mb-phi-1">VEHICLE</p>
+                  <p className="text-white/70">{nextLaunch.rocketName}</p>
                   {nextLaunch.booster && (
-                    <p className="text-xs text-gray-400 font-mono">
+                    <p className="text-xs text-white/35 font-mono">
                       {nextLaunch.booster.serial} | Flight {nextLaunch.booster.flights}
                     </p>
                   )}
                 </div>
                 <div>
-                  <p className="text-xs text-gray-500 font-mono mb-phi-1">LAUNCH SITE</p>
-                  <p className="text-gray-200 flex items-center gap-phi-1">
-                    <MapPin className="w-3 h-3 text-gray-400" />
+                  <p className="text-xs text-white/25 font-mono mb-phi-1">LAUNCH SITE</p>
+                  <p className="text-white/70 flex items-center gap-phi-1">
+                    <MapPin className="w-3 h-3 text-white/35" />
                     {nextLaunch.padName}
                   </p>
-                  <p className="text-xs text-gray-400">{nextLaunch.padLocation}</p>
+                  <p className="text-xs text-white/35">{nextLaunch.padLocation}</p>
                 </div>
                 <div>
-                  <p className="text-xs text-gray-500 font-mono mb-phi-1">LAUNCH TIME</p>
-                  <p className="text-gray-200">
+                  <p className="text-xs text-white/25 font-mono mb-phi-1">LAUNCH TIME</p>
+                  <p className="text-white/70">
                     {new Date(nextLaunch.net).toLocaleDateString("en-US", {
                       weekday: "short",
                       month: "short",
                       day: "numeric",
                     })}
                   </p>
-                  <p className="text-xs text-gray-400 font-mono">
+                  <p className="text-xs text-white/35 font-mono">
                     {new Date(nextLaunch.net).toLocaleTimeString("en-US", {
                       hour: "2-digit",
                       minute: "2-digit",
@@ -260,8 +260,8 @@ export default function Live() {
               {/* Mission description */}
               {nextLaunch.missionDescription && (
                 <div className="mb-phi-5">
-                  <p className="text-xs text-gray-500 font-mono mb-phi-2">MISSION NOTES</p>
-                  <p className="text-sm text-gray-300 leading-relaxed">
+                  <p className="text-xs text-white/25 font-mono mb-phi-2">MISSION NOTES</p>
+                  <p className="text-sm text-white/60 leading-relaxed">
                     {nextLaunch.missionDescription}
                   </p>
                 </div>
@@ -270,7 +270,7 @@ export default function Live() {
               {/* Webcast links */}
               {nextLaunch.webcasts.length > 0 ? (
                 <div>
-                  <p className="text-xs text-gray-500 font-mono mb-phi-3">
+                  <p className="text-xs text-white/25 font-mono mb-phi-3">
                     {isLive ? "WATCH NOW" : "WEBCAST LINKS"}
                   </p>
                   <div className="flex flex-wrap gap-phi-3">
@@ -280,18 +280,18 @@ export default function Live() {
                   </div>
                 </div>
               ) : (
-                <div className="glass rounded-xl p-phi-5 text-center">
-                  <Radio className="w-8 h-8 text-gray-600 mx-auto mb-phi-3" />
-                  <p className="text-sm text-gray-400 mb-phi-2">
+                <div className="card rounded-xl p-phi-5 text-center">
+                  <Radio className="w-8 h-8 text-white/15 mx-auto mb-phi-3" />
+                  <p className="text-sm text-white/35 mb-phi-2">
                     No webcast links available yet
                   </p>
-                  <p className="text-xs text-gray-500">
+                  <p className="text-xs text-white/25">
                     SpaceX typically streams on{" "}
                     <a
                       href="https://x.com/SpaceX"
                       target="_blank"
                       rel="noopener noreferrer"
-                      className="text-spacex-accent hover:underline"
+                      className="text-white/50 hover:underline"
                     >
                       @SpaceX on X
                     </a>
@@ -314,25 +314,25 @@ export default function Live() {
             </div>
             <div className="flex-1">
               <p className="text-sm font-medium text-white">Follow @SpaceX for live updates</p>
-              <p className="text-xs text-gray-400">SpaceX streams launches exclusively on X</p>
+              <p className="text-xs text-white/35">SpaceX streams launches exclusively on X</p>
             </div>
-            <ChevronRight className="w-4 h-4 text-gray-500 group-hover:text-spacex-accent transition-colors" />
+            <ChevronRight className="w-4 h-4 text-white/25 group-hover:text-white/50 transition-colors" />
           </a>
         </div>
       ) : (
         /* No upcoming launch data */
-        <div className="glass rounded-xl p-phi-6 text-center">
-          <Clock className="w-12 h-12 text-gray-600 mx-auto mb-phi-4" />
+        <div className="card rounded-xl p-phi-6 text-center">
+          <Clock className="w-12 h-12 text-white/15 mx-auto mb-phi-4" />
           <h3 className="text-xl font-bold text-white mb-phi-2">
             No Upcoming Starlink Launch Scheduled
           </h3>
-          <p className="text-sm text-gray-400 mb-phi-4">
+          <p className="text-sm text-white/35 mb-phi-4">
             Follow{" "}
             <a
               href="https://x.com/SpaceX"
               target="_blank"
               rel="noopener noreferrer"
-              className="text-spacex-accent hover:underline"
+              className="text-white/50 hover:underline"
             >
               @SpaceX
             </a>{" "}
@@ -344,14 +344,14 @@ export default function Live() {
       {/* Recent past launches with replay links */}
       {recentLaunches.length > 0 && (
         <div className="mt-phi-6">
-          <h3 className="text-sm font-mono text-gray-400 tracking-wider mb-phi-4 uppercase">
+          <h3 className="text-sm font-mono text-white/35 tracking-wider mb-phi-4 uppercase">
             Recent Mission Replays
           </h3>
           <div className="space-y-phi-3">
             {recentLaunches.map((launch) => (
               <div
                 key={launch.id}
-                className="glass rounded-xl p-phi-4 flex items-center gap-phi-4"
+                className="card rounded-xl p-phi-4 flex items-center gap-phi-4"
               >
                 {launch.image && (
                   <img
@@ -362,7 +362,7 @@ export default function Live() {
                 )}
                 <div className="flex-1 min-w-0">
                   <h4 className="font-medium text-white truncate">{launch.name}</h4>
-                  <p className="text-xs text-gray-400">
+                  <p className="text-xs text-white/35">
                     {new Date(launch.net).toLocaleDateString("en-US", {
                       month: "short",
                       day: "numeric",
@@ -372,7 +372,7 @@ export default function Live() {
                     <span className={
                       launch.status === "Success" ? "text-spacex-success" :
                       launch.status === "Failure" ? "text-spacex-danger" :
-                      "text-gray-500"
+                      "text-white/25"
                     }>
                       {launch.status}
                     </span>
@@ -386,14 +386,14 @@ export default function Live() {
                         href={w.url}
                         target="_blank"
                         rel="noopener noreferrer"
-                        className="flex items-center gap-phi-1 px-phi-3 py-phi-2 bg-white/5 rounded-lg text-xs text-spacex-accent hover:bg-white/10 transition-colors"
+                        className="flex items-center gap-phi-1 px-phi-3 py-phi-2 bg-white/5 rounded-lg text-xs text-white/50 hover:bg-white/10 transition-colors"
                       >
                         <Play className="w-3 h-3" />
                         Replay
                       </a>
                     ))
                   ) : (
-                    <span className="text-xs text-gray-500 font-mono">No replay</span>
+                    <span className="text-xs text-white/25 font-mono">No replay</span>
                   )}
                 </div>
               </div>

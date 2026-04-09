@@ -16,39 +16,39 @@ html, body, #root {
 
 body {
   background-color: #000000;
-  color: rgba(240, 240, 250, 1);
-  font-family: "Helvetica Neue", Helvetica, Arial, system-ui, sans-serif;
+  color: rgba(255, 255, 255, 0.92);
+  font-family: "Inter", system-ui, -apple-system, sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
-  line-height: 1.618;
+  line-height: 1.6;
   letter-spacing: -0.011em;
 }
 
-/* Custom scrollbar */
+/* Custom scrollbar — minimal */
 ::-webkit-scrollbar {
-  width: 6px;
+  width: 4px;
 }
 
 ::-webkit-scrollbar-track {
-  background: #000000;
+  background: transparent;
 }
 
 ::-webkit-scrollbar-thumb {
-  background: #1f2937;
-  border-radius: 3px;
+  background: rgba(255, 255, 255, 0.08);
+  border-radius: 2px;
 }
 
 ::-webkit-scrollbar-thumb:hover {
-  background: #374151;
+  background: rgba(255, 255, 255, 0.15);
 }
 
-/* Focus styles for accessibility */
+/* Focus styles */
 *:focus-visible {
-  outline: 2px solid #005288;
+  outline: 2px solid rgba(167, 209, 240, 0.5);
   outline-offset: 2px;
 }
 
-/* Skip link for accessibility */
+/* Skip link */
 .skip-link {
   position: absolute;
   top: -40px;
@@ -73,32 +73,44 @@ body {
   cursor: grabbing;
 }
 
-/* Stat card glow effect */
+/* Card subtle border glow on hover */
+.card {
+  background: rgba(255, 255, 255, 0.02);
+  border: 1px solid rgba(255, 255, 255, 0.06);
+  transition: border-color 0.2s ease, background 0.2s ease;
+}
+
+.card:hover {
+  border-color: rgba(255, 255, 255, 0.1);
+  background: rgba(255, 255, 255, 0.035);
+}
+
+/* Stat card glow */
 .stat-glow {
-  box-shadow: 0 0 15px rgba(0, 82, 136, 0.15);
-  transition: box-shadow 0.3s ease;
+  transition: box-shadow 0.3s ease, border-color 0.3s ease;
 }
 
 .stat-glow:hover {
-  box-shadow: 0 0 25px rgba(0, 82, 136, 0.3);
+  box-shadow: 0 0 20px rgba(0, 82, 136, 0.15);
 }
 
-/* Glass effect */
+/* Glass header */
 .glass {
-  background: rgba(0, 0, 0, 0.85);
-  backdrop-filter: blur(12px);
+  background: rgba(0, 0, 0, 0.8);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
   border: 1px solid rgba(255, 255, 255, 0.06);
 }
 
-/* Animated gradient text */
+/* Gradient text */
 .gradient-text {
-  background: linear-gradient(135deg, #a7d1f0, #005288);
+  background: linear-gradient(135deg, #ffffff, #a7d1f0);
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
   background-clip: text;
 }
 
-/* Satellite dot pulse */
+/* Satellite pulse */
 @keyframes sat-pulse {
   0%, 100% { transform: scale(1); opacity: 1; }
   50% { transform: scale(1.5); opacity: 0.5; }
@@ -108,11 +120,20 @@ body {
   animation: sat-pulse 2s ease-in-out infinite;
 }
 
-/* Golden ratio layout utilities */
+/* Golden ratio layout */
 .golden-major {
   flex: 1.618;
 }
 
 .golden-minor {
   flex: 1;
+}
+
+/* Section label — consistent small caps */
+.section-label {
+  font-size: 11px;
+  font-weight: 500;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: rgba(255, 255, 255, 0.35);
 }

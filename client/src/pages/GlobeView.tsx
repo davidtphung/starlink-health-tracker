@@ -278,7 +278,7 @@ export default function GlobeView() {
       <div className="absolute top-phi-4 left-phi-4 glass rounded-xl p-phi-4 max-w-xs" role="status" aria-live="polite">
         <div className="flex items-center gap-phi-2 mb-phi-2">
           <div className="w-2 h-2 rounded-full bg-spacex-success animate-pulse" />
-          <span className="text-xs font-mono text-spacex-success tracking-wider">LIVE TRACKING</span>
+          <span className="text-[11px] font-medium text-spacex-success tracking-[0.12em] uppercase">LIVE TRACKING</span>
         </div>
         <p className="text-2xl font-bold text-white font-mono">
           {activeSatCount.toLocaleString()}
@@ -288,7 +288,7 @@ export default function GlobeView() {
 
       {/* Legend */}
       <div className="absolute bottom-phi-4 left-phi-4 glass rounded-xl p-phi-3">
-        <p className="text-xs font-mono text-gray-400 mb-phi-2">HEALTH STATUS</p>
+        <p className="text-[11px] text-white/25 tracking-wide uppercase font-medium mb-2">HEALTH STATUS</p>
         <div className="flex gap-phi-4 text-xs">
           <span className="flex items-center gap-phi-1">
             <span className="w-2 h-2 rounded-full bg-spacex-success" aria-hidden="true" />
@@ -307,7 +307,7 @@ export default function GlobeView() {
 
       {/* Interaction hint */}
       <div className="absolute bottom-phi-4 right-phi-4 glass rounded-xl px-phi-3 py-phi-2">
-        <p className="text-xs text-gray-500 font-mono">
+        <p className="text-[11px] text-white/20 tracking-wide">
           DRAG TO ROTATE / SCROLL TO ZOOM
         </p>
       </div>
