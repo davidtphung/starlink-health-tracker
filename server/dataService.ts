@@ -224,7 +224,7 @@ export class DataService {
           const ld = new Date(launchDate);
           const launchYear = ld.getFullYear();
           const launchMonth = ld.getMonth();
-          if (launchYear >= 2024 || (launchYear === 2023 && launchMonth >= 1)) version = "v2.0-mini";
+          if (launchYear >= 2023 && launchMonth >= 1) version = "v2.0-mini";
           else if (launchYear >= 2022 || (launchYear === 2021 && launchMonth >= 8)) version = "v1.5";
           else if (launchYear >= 2019) version = "v1.0";
           else version = "prototype";
@@ -631,8 +631,8 @@ export class DataService {
       },
       {
         label: "Coverage Area",
-        value: "~60 countries",
-        description: "Starlink provides internet coverage across six continents",
+        value: "100+ countries",
+        description: "Starlink provides internet service across all seven continents",
         icon: "globe",
       },
       {

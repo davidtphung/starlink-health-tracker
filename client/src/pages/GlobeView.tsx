@@ -253,7 +253,7 @@ export default function GlobeView() {
           <div className="flex items-center justify-center h-full">
             <div className="flex flex-col items-center gap-4">
               <div className="w-16 h-16 border-2 border-spacex-blue border-t-transparent rounded-full animate-spin" />
-              <p className="text-spacex-accent font-mono text-sm tracking-wider">
+              <p className="text-white/60 font-mono text-sm tracking-wider">
                 LOADING CONSTELLATION...
               </p>
             </div>
@@ -283,7 +283,7 @@ export default function GlobeView() {
         <p className="text-2xl font-bold text-white font-mono">
           {activeSatCount.toLocaleString()}
         </p>
-        <p className="text-xs text-gray-400">Active Satellites in Orbit</p>
+        <p className="text-xs text-white/40">Active Satellites in Orbit</p>
       </div>
 
       {/* Legend */}
@@ -316,7 +316,7 @@ export default function GlobeView() {
       {selected && (
         <div className="absolute top-phi-4 right-phi-4 glass rounded-xl p-phi-5 w-80 animate-fade-in" role="dialog" aria-label="Satellite details">
           <div className="flex items-center justify-between mb-phi-4">
-            <h3 className="font-semibold text-spacex-accent">{selected.name}</h3>
+            <h3 className="font-semibold text-white/60">{selected.name}</h3>
             <button
               onClick={() => setSelected(null)}
               className="p-1 hover:bg-white/10 rounded"
@@ -327,28 +327,28 @@ export default function GlobeView() {
           </div>
           <div className="space-y-phi-3 text-sm">
             <div className="flex items-center gap-phi-2">
-              <Shield className="w-4 h-4 text-gray-400" />
-              <span className="text-gray-400">Health:</span>
+              <Shield className="w-4 h-4 text-white/40" />
+              <span className="text-white/40">Health:</span>
               <span className={getHealthColor(selected.healthStatus)}>
                 {selected.healthStatus.toUpperCase()} ({selected.healthScore}%)
               </span>
             </div>
             <div className="flex items-center gap-phi-2">
-              <MapPin className="w-4 h-4 text-gray-400" />
-              <span className="text-gray-400">Position:</span>
+              <MapPin className="w-4 h-4 text-white/40" />
+              <span className="text-white/40">Position:</span>
               <span>{selected.latitude?.toFixed(2)}, {selected.longitude?.toFixed(2)}</span>
             </div>
             <div className="flex items-center gap-phi-2">
-              <Activity className="w-4 h-4 text-gray-400" />
-              <span className="text-gray-400">Altitude:</span>
+              <Activity className="w-4 h-4 text-white/40" />
+              <span className="text-white/40">Altitude:</span>
               <span>{selected.heightKm?.toFixed(1)} km</span>
             </div>
             <div className="flex items-center gap-phi-2">
-              <Calendar className="w-4 h-4 text-gray-400" />
-              <span className="text-gray-400">Launched:</span>
+              <Calendar className="w-4 h-4 text-white/40" />
+              <span className="text-white/40">Launched:</span>
               <span>{formatDate(selected.launchDate)}</span>
             </div>
-            <div className="text-xs text-gray-500 mt-2 font-mono">
+            <div className="text-xs text-white/25 mt-2 font-mono">
               NORAD ID: {selected.noradId} | Version: {selected.version}
             </div>
           </div>
