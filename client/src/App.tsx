@@ -159,7 +159,7 @@ export default function App() {
               <span className="mx-1 text-white/10">|</span>
               <span>Data from SpaceX API & CelesTrak</span>
             </div>
-            <span className="tracking-[0.15em] uppercase">v2.2</span>
+            <span className="tracking-[0.15em] uppercase">v2.3</span>
           </div>
         </div>
       </footer>
