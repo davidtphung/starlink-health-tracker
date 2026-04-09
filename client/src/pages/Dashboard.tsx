@@ -10,6 +10,10 @@ import {
 import type { ConstellationStats, FunFact, SpaceXLaunch } from "@shared/types";
 import { formatNumber, formatDate } from "../lib/utils";
 import { BarChart, Bar, XAxis, YAxis, Tooltip, ResponsiveContainer } from "recharts";
+import VersionBreakdown from "../components/VersionBreakdown";
+import DirectToCell from "../components/DirectToCell";
+import AgeAnalysis from "../components/AgeAnalysis";
+import LaunchTimeline from "../components/LaunchTimeline";
 
 const iconMap: Record<string, typeof Zap> = {
   scale: Scale, clock: Clock, mountain: Mountain, rocket: Rocket,
@@ -25,7 +29,7 @@ export default function Dashboard() {
 
   return (
     <div className="px-phi-4 sm:px-phi-5 lg:px-phi-6 py-phi-6 sm:py-phi-7 space-y-10">
-      {/* Hero — big, confident, readable */}
+      {/* Hero */}
       <section>
         <div className="flex items-center gap-2.5 mb-4">
           <span className="w-1.5 h-1.5 rounded-full bg-spacex-success animate-pulse" aria-hidden="true" />
@@ -45,7 +49,7 @@ export default function Dashboard() {
       {/* Key Metrics — 6 cards */}
       {stats && <HeroStats stats={stats} />}
 
-      {/* Middle row: Health + Globe CTA + Growth Chart */}
+      {/* Row 2: Health + Globe CTA + Growth Chart */}
       {stats && (
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5">
           <HealthCard stats={stats} />
@@ -54,12 +58,22 @@ export default function Dashboard() {
         </div>
       )}
 
-      {/* Bottom: Recent Launches + Social (golden ratio) */}
-      <div className="flex flex-col lg:flex-row gap-5">
-        <div className="golden-major">
+      {/* Row 3: Version Breakdown + Direct-to-Cell + Age Analysis */}
+      {stats && (
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5">
+          <VersionBreakdown stats={stats} />
+          <DirectToCell stats={stats} />
+          <AgeAnalysis />
+        </div>
+      )}
+
+      {/* Row 4: Launch Groups + Recent Missions + Social (3-col) */}
+      <div className="grid grid-cols-1 lg:grid-cols-3 gap-5">
+        {launches && <LaunchTimeline launches={launches} />}
+        <div className="lg:col-span-1">
           {launches && <RecentLaunches launches={launches} />}
         </div>
-        <div className="golden-minor space-y-5">
+        <div className="space-y-5">
           <SocialCard
             handle="@SpaceX"
             url="https://x.com/SpaceX"
@@ -96,12 +110,7 @@ function HeroStats({ stats }: { stats: ConstellationStats }) {
       {cards.map((card, i) => {
         const Icon = card.icon;
         return (
-          <motion.div
-            key={card.label}
-            initial={{ opacity: 0, y: 10 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ delay: i * 0.04, duration: 0.3 }}
-          >
+          <motion.div key={card.label} initial={{ opacity: 0, y: 10 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: i * 0.04, duration: 0.3 }}>
             <Link href={card.href}>
               <div className="card rounded-xl p-5 cursor-pointer group">
                 <Icon className="w-4 h-4 text-white/20 mb-3" aria-hidden="true" />
@@ -109,9 +118,7 @@ function HeroStats({ stats }: { stats: ConstellationStats }) {
                   <CountUp end={card.value} duration={1.2} separator="," preserveValue />
                   {card.suffix && <span className="text-lg text-white/30">{card.suffix}</span>}
                 </p>
-                <p className="text-[11px] text-white/30 tracking-wide mt-1.5 uppercase font-medium">
-                  {card.label}
-                </p>
+                <p className="text-[11px] text-white/30 tracking-wide mt-1.5 uppercase font-medium">{card.label}</p>
               </div>
             </Link>
           </motion.div>
@@ -147,7 +154,7 @@ function HealthCard({ stats }: { stats: ConstellationStats }) {
         <div>
           <div className="flex h-1.5 rounded-full overflow-hidden mb-4 bg-white/[0.03]">
             {health.map((h) => (
-              <div key={h.label} className={`${h.color}`} style={{ width: `${total > 0 ? (h.count / total) * 100 : 0}%` }} />
+              <div key={h.label} className={h.color} style={{ width: `${total > 0 ? (h.count / total) * 100 : 0}%` }} />
             ))}
           </div>
           <div className="flex gap-5">
@@ -180,9 +187,7 @@ function GlobeCTA({ stats }: { stats: ConstellationStats }) {
           <Globe className="w-20 h-20 text-white/[0.06] mx-auto my-6 group-hover:text-white/10 transition-colors animate-spin-slow" aria-hidden="true" />
         </div>
         <div className="relative z-10 text-center">
-          <p className="text-2xl font-semibold text-white tabular-nums">
-            {formatNumber(stats.activeSatellites)}
-          </p>
+          <p className="text-2xl font-semibold text-white tabular-nums">{formatNumber(stats.activeSatellites)}</p>
           <p className="text-xs text-white/30 mt-1">satellites visualized in real-time</p>
         </div>
       </div>
@@ -207,35 +212,17 @@ function GrowthMiniChart({ stats }: { stats: ConstellationStats }) {
       <div className="h-44">
         <ResponsiveContainer width="100%" height="100%">
           <BarChart data={data} barGap={2}>
-            <XAxis
-              dataKey="year"
-              tick={{ fill: "rgba(255,255,255,0.25)", fontSize: 10, fontFamily: "Inter" }}
-              axisLine={false}
-              tickLine={false}
-            />
+            <XAxis dataKey="year" tick={{ fill: "rgba(255,255,255,0.25)", fontSize: 10, fontFamily: "Inter" }} axisLine={false} tickLine={false} />
             <YAxis hide />
-            <Tooltip
-              contentStyle={{
-                background: "rgba(0,0,0,0.95)",
-                border: "1px solid rgba(255,255,255,0.08)",
-                borderRadius: "8px",
-                color: "#e5e7eb",
-                fontFamily: "Inter",
-                fontSize: "11px",
-              }}
-            />
+            <Tooltip contentStyle={{ background: "rgba(0,0,0,0.95)", border: "1px solid rgba(255,255,255,0.08)", borderRadius: "8px", color: "#e5e7eb", fontFamily: "Inter", fontSize: "11px" }} />
             <Bar dataKey="sats" fill="rgba(167,209,240,0.6)" radius={[3, 3, 0, 0]} name="Satellites" />
             <Bar dataKey="launches" fill="rgba(0,82,136,0.8)" radius={[3, 3, 0, 0]} name="Launches" />
           </BarChart>
         </ResponsiveContainer>
       </div>
       <div className="flex justify-center gap-5 mt-3 text-[10px] text-white/25">
-        <span className="flex items-center gap-1.5">
-          <span className="w-2 h-2 rounded-sm bg-spacex-accent/60" aria-hidden="true" />Satellites
-        </span>
-        <span className="flex items-center gap-1.5">
-          <span className="w-2 h-2 rounded-sm bg-spacex-blue/80" aria-hidden="true" />Launches
-        </span>
+        <span className="flex items-center gap-1.5"><span className="w-2 h-2 rounded-sm bg-spacex-accent/60" aria-hidden="true" />Satellites</span>
+        <span className="flex items-center gap-1.5"><span className="w-2 h-2 rounded-sm bg-spacex-blue/80" aria-hidden="true" />Launches</span>
       </div>
     </div>
   );
@@ -243,32 +230,20 @@ function GrowthMiniChart({ stats }: { stats: ConstellationStats }) {
 
 function RecentLaunches({ launches }: { launches: SpaceXLaunch[] }) {
   const recent = launches.slice(0, 5);
-
   return (
     <div className="card rounded-xl p-6">
       <div className="flex items-center justify-between mb-5">
         <span className="section-label">Recent Missions</span>
-        <Link href="/launches">
-          <span className="flex items-center gap-1 text-[11px] text-white/30 hover:text-white/50 cursor-pointer transition-colors">
-            View all <ArrowRight className="w-3 h-3" />
-          </span>
-        </Link>
+        <Link href="/launches"><span className="flex items-center gap-1 text-[11px] text-white/30 hover:text-white/50 cursor-pointer transition-colors">View all <ArrowRight className="w-3 h-3" /></span></Link>
       </div>
       <div className="space-y-0.5">
         {recent.map((l) => (
           <Link key={l.id} href="/launches">
-            <div className="flex items-center gap-4 px-3 py-3 rounded-lg hover:bg-white/[0.02] transition-colors cursor-pointer group">
+            <div className="flex items-center gap-4 px-3 py-3 rounded-lg hover:bg-white/[0.02] transition-colors cursor-pointer">
               <div className={`w-1.5 h-1.5 rounded-full flex-shrink-0 ${l.success ? "bg-spacex-success" : l.success === false ? "bg-spacex-danger" : "bg-spacex-warning"}`} />
               <div className="flex-1 min-w-0">
                 <p className="text-sm text-white font-medium truncate">{l.name}</p>
                 <p className="text-[11px] text-white/25 mt-0.5">{formatDate(l.dateUtc)}</p>
-              </div>
-              <div className="hidden sm:flex items-center gap-3">
-                {l.cores[0] && (
-                  <span className="px-2 py-0.5 bg-white/[0.04] rounded text-[10px] font-mono text-white/30">
-                    {l.cores[0].serial}
-                  </span>
-                )}
               </div>
               <span className="text-[11px] text-white/15 tabular-nums font-mono">#{l.flightNumber}</span>
             </div>
@@ -281,13 +256,7 @@ function RecentLaunches({ launches }: { launches: SpaceXLaunch[] }) {
 
 function SocialCard({ handle, url, description, label }: { handle: string; url: string; description: string; label: string }) {
   return (
-    <a
-      href={url}
-      target="_blank"
-      rel="noopener noreferrer"
-      className="card rounded-xl p-6 block group"
-      aria-label={`Follow ${handle} on X`}
-    >
+    <a href={url} target="_blank" rel="noopener noreferrer" className="card rounded-xl p-6 block group" aria-label={`Follow ${handle} on X`}>
       <div className="flex items-center justify-between mb-4">
         <span className="section-label">{label}</span>
         <ExternalLink className="w-3 h-3 text-white/10 group-hover:text-white/30 transition-colors" />
@@ -298,9 +267,7 @@ function SocialCard({ handle, url, description, label }: { handle: string; url: 
             <path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z" />
           </svg>
         </div>
-        <div>
-          <p className="text-white font-medium text-sm">{handle}</p>
-        </div>
+        <p className="text-white font-medium text-sm">{handle}</p>
       </div>
       <p className="text-[13px] text-white/30 leading-relaxed">{description}</p>
     </a>
@@ -318,13 +285,7 @@ function FunFactsStrip({ facts }: { facts: FunFact[] }) {
         {facts.slice(0, 4).map((fact, i) => {
           const Icon = iconMap[fact.icon] || Zap;
           return (
-            <motion.div
-              key={fact.label}
-              initial={{ opacity: 0, y: 8 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ delay: i * 0.06, duration: 0.3 }}
-              className="card rounded-xl p-5"
-            >
+            <motion.div key={fact.label} initial={{ opacity: 0, y: 8 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: i * 0.06, duration: 0.3 }} className="card rounded-xl p-5">
               <Icon className="w-4 h-4 text-spacex-gold/40 mb-3" aria-hidden="true" />
               <p className="text-[10px] text-white/25 tracking-wide mb-1 uppercase font-medium">{fact.label}</p>
               <p className="text-base font-semibold text-white">{fact.value}</p>
@@ -346,6 +307,9 @@ function DashboardSkeleton() {
       </div>
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5">
         {[...Array(3)].map((_, i) => <div key={i} className="h-56 rounded-xl bg-white/[0.02]" />)}
+      </div>
+      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5">
+        {[...Array(3)].map((_, i) => <div key={i} className="h-48 rounded-xl bg-white/[0.02]" />)}
       </div>
     </div>
   );
