@@ -14,6 +14,7 @@ import VersionBreakdown from "../components/VersionBreakdown";
 import DirectToCell from "../components/DirectToCell";
 import AgeAnalysis from "../components/AgeAnalysis";
 import LaunchTimeline from "../components/LaunchTimeline";
+import GlobePreview from "../components/GlobePreview";
 
 const iconMap: Record<string, typeof Zap> = {
   scale: Scale, clock: Clock, mountain: Mountain, rocket: Rocket,
@@ -53,7 +54,7 @@ export default function Dashboard() {
       {stats && (
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5">
           <HealthCard stats={stats} />
-          <GlobeCTA stats={stats} />
+          <GlobePreview activeCount={stats.activeSatellites} />
           <GrowthMiniChart stats={stats} />
         </div>
       )}
@@ -174,26 +175,6 @@ function HealthCard({ stats }: { stats: ConstellationStats }) {
   );
 }
 
-function GlobeCTA({ stats }: { stats: ConstellationStats }) {
-  return (
-    <Link href="/globe">
-      <div className="card rounded-xl p-6 cursor-pointer group h-full flex flex-col justify-between relative overflow-hidden">
-        <div className="absolute inset-0 bg-gradient-to-br from-spacex-blue/5 to-transparent opacity-0 group-hover:opacity-100 transition-opacity" />
-        <div className="relative z-10">
-          <div className="flex items-center justify-between mb-5">
-            <span className="section-label">3D Globe View</span>
-            <ArrowRight className="w-3.5 h-3.5 text-white/10 group-hover:text-white/30 transition-colors" />
-          </div>
-          <Globe className="w-20 h-20 text-white/[0.06] mx-auto my-6 group-hover:text-white/10 transition-colors animate-spin-slow" aria-hidden="true" />
-        </div>
-        <div className="relative z-10 text-center">
-          <p className="text-2xl font-semibold text-white tabular-nums">{formatNumber(stats.activeSatellites)}</p>
-          <p className="text-xs text-white/30 mt-1">satellites visualized in real-time</p>
-        </div>
-      </div>
-    </Link>
-  );
-}
 
 function GrowthMiniChart({ stats }: { stats: ConstellationStats }) {
   const allYears = new Set([...Object.keys(stats.launchesByYear), ...Object.keys(stats.satellitesByYear)]);
