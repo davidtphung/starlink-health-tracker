@@ -1,12 +1,19 @@
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 32 32">
   <rect width="32" height="32" rx="6" fill="#000000"/>
-  <!-- Bold Starlink-inspired dish/signal mark -->
-  <g transform="translate(16, 18)">
-    <!-- Three bold signal arcs radiating up-right -->
-    <path d="M-8,4 Q-6,-4 0,-8 Q6,-10 10,-6" stroke="#ffffff" stroke-width="2.5" fill="none" stroke-linecap="round"/>
-    <path d="M-5,6 Q-3,-1 2,-4 Q7,-6 10,-2" stroke="#ffffff" stroke-width="2.2" fill="none" stroke-linecap="round" opacity="0.6"/>
-    <path d="M-2,8 Q0,2 4,0 Q8,-1 10,2" stroke="#ffffff" stroke-width="1.8" fill="none" stroke-linecap="round" opacity="0.3"/>
-    <!-- Bright satellite dot at the focal point -->
-    <circle cx="-9" cy="5" r="2.5" fill="#ffffff"/>
+  <!-- Satellite body — matches the lucide Satellite icon in site nav -->
+  <g transform="translate(16, 16)" fill="none" stroke-linecap="round" stroke-linejoin="round">
+    <!-- Orbital path ring -->
+    <ellipse cx="0" cy="0" rx="12" ry="5" transform="rotate(-35)" stroke="#005288" stroke-width="1.5" opacity="0.5"/>
+    <!-- Satellite body -->
+    <rect x="-3" y="-3" width="6" height="6" rx="1.2" fill="#005288" stroke="#a7d1f0" stroke-width="1.5"/>
+    <!-- Solar panels -->
+    <rect x="-10" y="-2" width="5.5" height="4" rx="0.8" stroke="#a7d1f0" stroke-width="1.3"/>
+    <rect x="4.5" y="-2" width="5.5" height="4" rx="0.8" stroke="#a7d1f0" stroke-width="1.3"/>
+    <!-- Panel lines -->
+    <line x1="-7.5" y1="-2" x2="-7.5" y2="2" stroke="#a7d1f0" stroke-width="0.8" opacity="0.5"/>
+    <line x1="7" y1="-2" x2="7" y2="2" stroke="#a7d1f0" stroke-width="0.8" opacity="0.5"/>
+    <!-- Signal dot -->
+    <circle cx="5" cy="-6" r="1.2" fill="#a7d1f0"/>
+    <circle cx="5" cy="-6" r="2.5" stroke="#a7d1f0" stroke-width="0.7" opacity="0.35"/>
   </g>
 </svg>

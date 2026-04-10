@@ -1,9 +1,18 @@
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 180 180">
   <rect width="180" height="180" rx="40" fill="#000000"/>
-  <g transform="translate(90, 100)">
-    <path d="M-45,22 Q-34,-22 0,-45 Q34,-56 56,-34" stroke="#ffffff" stroke-width="14" fill="none" stroke-linecap="round"/>
-    <path d="M-28,34 Q-17,-6 11,-22 Q39,-34 56,-11" stroke="#ffffff" stroke-width="12" fill="none" stroke-linecap="round" opacity="0.6"/>
-    <path d="M-11,45 Q0,11 22,0 Q45,-6 56,11" stroke="#ffffff" stroke-width="10" fill="none" stroke-linecap="round" opacity="0.3"/>
-    <circle cx="-50" cy="28" r="14" fill="#ffffff"/>
+  <g transform="translate(90, 90)" fill="none" stroke-linecap="round" stroke-linejoin="round">
+    <!-- Orbital path -->
+    <ellipse cx="0" cy="0" rx="65" ry="28" transform="rotate(-35)" stroke="#005288" stroke-width="6" opacity="0.4"/>
+    <!-- Satellite body -->
+    <rect x="-14" y="-14" width="28" height="28" rx="5" fill="#005288" stroke="#a7d1f0" stroke-width="6"/>
+    <!-- Solar panels -->
+    <rect x="-52" y="-10" width="30" height="20" rx="3" stroke="#a7d1f0" stroke-width="5"/>
+    <rect x="22" y="-10" width="30" height="20" rx="3" stroke="#a7d1f0" stroke-width="5"/>
+    <!-- Panel dividers -->
+    <line x1="-37" y1="-10" x2="-37" y2="10" stroke="#a7d1f0" stroke-width="2.5" opacity="0.4"/>
+    <line x1="37" y1="-10" x2="37" y2="10" stroke="#a7d1f0" stroke-width="2.5" opacity="0.4"/>
+    <!-- Signal -->
+    <circle cx="22" cy="-28" r="5" fill="#a7d1f0"/>
+    <circle cx="22" cy="-28" r="11" stroke="#a7d1f0" stroke-width="2.5" opacity="0.3"/>
   </g>
 </svg>
